@@ -42,15 +42,41 @@ Es posible encontrar en el mercado soluciones más intergadas, que podrían prop
 
 \subsection{Yacer -- MVB-Analyzer}
 
-Sitio web: \cite{yacer}
+El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer \cite{yacer} proporciona una interfaz MVB, dos interfaces Ethernet y dos interfaces de expansión para recopilar y recibir tramas MVB y WTB, entre otras, y enviarlas a una computadora a través de una interfaz Ethernet. El producto incluye un software que permite analizar los datos del bus MVB y realizar simulaciones para encontrar la resolución de problemas y evaluar el funcionamiento del bus MVB.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[height=20\baselineskip]{./Figures/yacer.jpg}
+	\caption[Yacer -- MVB-Analyzer]{El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer.}
+\end{figure}
 
 \subsection{AMiT Transportation -- WTB and MVB Analyzers}
 
-Sitio web: \cite{amit}
+Los analizadores del bus WTB y MVB de la empresa AMiT Transportation \cite{amit} son dispositivos de bus pasivos que monitorean el tráfico en la red y lo pasan al bus Ethernet en tramas UDP. Se conecta una PC al bus Ethernet con un programa para recibir y evaluar las tramas UDP.
+
+El analizador solo monitorea el bus, y es "invisible" para otros dispositivos. Se monitorean todas las tramas WTB o MVB en el bus, que son transmitidas por el bus Ethernet a la PC. El producto incluye un complemento para el programa de código abierto Wireshark \cite{wireshark}, que permite analizar las tramas capturadas.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[height=20\baselineskip]{./Figures/amit.jpg}
+	\caption[AMiT Transportation -- WTB and MVB Analyzers]{El analizador de bus MVB de la empresa AMiT Transportation.}
+\end{figure}
+
 
 \subsection{Duagon -- D442 MVB Diagnostic System}
 
-Sitio web: \cite{duagon}
+El sistema de diagnóstico MVB de la empresa Duagon \cite{duagon} está diseñado para depurar dispositivos y redes MVB. El sistema se conecta a una PC común, y puede funcionar en dos modos de operación:
+
+\begin{itemize}
+\item En el modo \emph{monitor}, el sistema permite investigar dispositivos MVB en el bus, leer y escribir la base de datos MVB, y escanear los puertos de los dispositivos, entre otras cosas.
+\item En el modo \emph{servidor}, el sistema permite ejecutar aplicaciones programadas por el usuario. Se incluye una biblioteca de programación MVB con todas las funciones en el sistema de diagnóstico para controlar una red MVB completa.
+\end{itemize}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=0.5\textwidth]{./Figures/duagon.png}
+	\caption[Duagon -- D442 MVB Diagnostic System]{El sistema de diagnóstico MVB de la empresa Duagon}
+\end{figure}
 
 
 \section{Propuesta inicial}
