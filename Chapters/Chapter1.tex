@@ -29,9 +29,11 @@ Estas limitaciones se vuelven más evidentes con frecuencia. Un ejemplo común e
 También es común la quema de fusibles, un inconveniente difícil de diagnosticar sin el monitoreo de variables como la tensión de línea.
 Otro desafío adicional es la falta de control sobre las variables del sistema de aire acondicionado, lo que dificulta garantizar el confort y la seguridad de los pasajeros.
 
-Otro organismo involucrado en este trabajo es GICSAFe \cite{web:gicsafe}, que desarrolla sistemas electrónicos e informáticos para aplicaciones ferroviarias. Uno de sus objetivos es evitar la dependencia de tecnología cerrada que debe mantenida durante décadas. El desarrollo de estos sistemas permite sustituir importaciones y generar trabajo con alto valor agregado. En este contexto GICSAFe decide trabajar en conjunto con Trenes Argentinos para buscar una solución a los problemas mencionados.
+Otro organismo involucrado en este trabajo es el Grupo de Investigación en Calidad y Seguridad de las Aplicaciones Ferroviarias (GICSAFe) \cite{web:gicsafe}, que desarrolla sistemas electrónicos e informáticos para para uso en el ámbito ferroviario. El desarrollo de estos sistemas permite sustituir importaciones, evitar la dependencia de tecnología cerrada que debe mantenida durante décadas, y generar trabajo con alto valor agregado. En este contexto GICSAFe decide trabajar en conjunto con Trenes Argentinos para buscar una solución a los problemas mencionados.
 
 \section{Estado del arte}
+
+\label{estadodelarte}
 
 La norma IEC 61375-1 es la fuente de información principal acerca del estándar TCN. Lamentablemente no hay mucha información adicional de libre acceso acerca del estándar, como artículos y notas de aplicación. Entre las publicaciones que citan a la norma tal vez las más relevantes son \textit{Design and implementation of MVB protocol analyzer} \cite{mvb-pub-1} (escrita en idioma chino) y \textit{An MVB signal capturer based on microcontrollers for metro train on-line health monitoring system} \cite{mvb-pub-2}, siendo ambas demasiado cortas como para aportar información realmente útil.
 
@@ -82,7 +84,18 @@ El sistema de diagnóstico MVB de la empresa Duagon \cite{duagon} está diseñad
 
 \section{Propuesta inicial}
 
-% En este contexto, Trenes Argentinos y el Grupo de Investigación en Calidad y Seguridad de las Aplicaciones Ferroviarias (GICSAFe) \cite{web:gicsafe} arman un grupo de trabajo para encontrar una solución.
+Si bien los productos listados en la sección \ref{estadodelarte} podrían ser de utilidad para Trenes Argentinos, no resolverían los problemas principales, que son la falta de \emph{know-how} y la dependencia de tecnología cerrada. Por esta razón, el GICSAFe forma varios grupos de trabajo para generar tecnología y conocimiento propoio sobre la red TCN. Como parte de esta iniciativa se presenta el Proyecto de Desarrollo Estratégico UBA-PDE Nº 15/2020 \cite{pde2020}, titulado ``Sistema de monitoreo y gestión de la red TCN en formaciones ferroviarias''.
 
+Los objetivos planteados en el PDE son:
+
+\begin{enumerate}
+\item Desarrollar un prototipo que permita monitorear la red TCN presente en las formaciones ferroviarias.
+\item Que los datos relevados puedan ser reportados a una base de datos remota para poder ser procesados y consultados por Trenes Argentinos en tiempo real.
+\item Desarrollar la capacidad de inyectar datos en la red a partir del conocimiento adquirido en las etapas previas.
+\end{enumerate}
+
+Para resolver dichos objetivos, se evalúa realizar un prototipo basado en el chip MVBC02C. Este proyecto está vinculado con el Trabajo Final de la CESE de Gustavo Paredes.
+
+\textcolor{blue}{Nota: llegué hasta acá. Luego seguiría la explicación de que Gustavo no llegó a terminar su trabajo, principalmente porque hay muy poca información acerca de cómo utilizar el chip. Por eso se decide simplificar los requerimientos y hacer un prototipo utilizando un microcontrolador.}
 
 \section{Alcance y objetivos}
