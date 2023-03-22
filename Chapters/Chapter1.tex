@@ -1,6 +1,6 @@
 \chapter{Introducción general}
 
-En este capítulo se presenta el marco general del trabajo. Se detallan las motivaciones que llevaron a Trenes Argentinos a solicitar su desarrollo, y se realiza una revisión del estado del arte en cuanto a los productos comerciales disponibles. Se describe la propuesta inicial y las razones por las que posteriormente se decidió descartarla, y se exponen el alcance y los objetivos de la propuesta final.
+En este capítulo se presentan las motivaciones que guiaron la elaboración de este trabajo. Luego se realiza una revisión del estado del arte en cuanto a los productos comerciales disponibles, se describe la propuesta inicial y las razones por las que posteriormente se decidió descartarla, y se exponen el alcance y los objetivos de la propuesta final.
 
 \label{cap:IntroGeneral}
 
@@ -23,20 +23,21 @@ Los distintos subsistemas electrónicos presentes en una EMU (control de frenos,
 
 Actualmente, Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de poder capturar la información disponible, o agregar dispositivos de desarrollo propio.
 Además, no dispone de un sistema de monitoreo a distancia que permita observar en tiempo real el estado de cada uno de los componentes de una formación ferroviaria.
-Tampoco cuenta con un sistema de almacenamiento histórico del estado de los componentes, de forma tal de poder hacer pericia en caso de un accidente.
+La empresa cuenta con un sistema de almacenamiento histórico del estado de los componentes, pero se trata de un sistema propietario que registra solo un subconjunto de los datos disponibles, y por una duración limitada.
 
-Estas limitaciones se vuelven más evidentes con frecuencia. Un ejemplo común es cuando una formación queda varada en un punto alejado de una estación, obligando a los técnicos a trasladarse personalmente para resolver el problema.
+Estas limitaciones se vuelven más evidentes con frecuencia. Un ejemplo común es cuando una formación queda varada en un punto alejado de una estación, obligando a los técnicos a trasladarse personalmente para evaluar el problema.
 También es común la quema de fusibles, un inconveniente difícil de diagnosticar sin el monitoreo de variables como la tensión de línea.
 Otro desafío adicional es la falta de control sobre las variables del sistema de aire acondicionado, lo que dificulta garantizar el confort y la seguridad de los pasajeros.
 
+Otro organismo involucrado en este trabajo es GICSAFe \cite{web:gicsafe}, que desarrolla sistemas electrónicos e informáticos para aplicaciones ferroviarias. Uno de sus objetivos es evitar la dependencia de tecnología cerrada que debe mantenida durante décadas. El desarrollo de estos sistemas permite sustituir importaciones y generar trabajo con alto valor agregado. En este contexto GICSAFe decide trabajar en conjunto con Trenes Argentinos para buscar una solución a los problemas mencionados.
 
 \section{Estado del arte}
 
 La norma IEC 61375-1 es la fuente de información principal acerca del estándar TCN. Lamentablemente no hay mucha información adicional de libre acceso acerca del estándar, como artículos y notas de aplicación. Entre las publicaciones que citan a la norma tal vez las más relevantes son \textit{Design and implementation of MVB protocol analyzer} \cite{mvb-pub-1} (escrita en idioma chino) y \textit{An MVB signal capturer based on microcontrollers for metro train on-line health monitoring system} \cite{mvb-pub-2}, siendo ambas demasiado cortas como para aportar información realmente útil.
 
-La mayoría de los equipos desarrollados hasta la fecha que funcionan de acuerdo al estándar TCN se basa en dos ASICs\footnote{Application-specific integrated circuit.} diferentes: el circuito MVBCS1 \cite{mvbcs1}, producido originalmente por la compañía ABB, aunque hoy en día es comercializado por Siemens, y el MVBC02C \cite{mvbc02c}, producido por Bombardier. Debido a su naturaleza, estos circuitos presentan características rígidas que no son apropiadas para satisfacer la amplia gama de posibilidades con respecto al tipo de nodos conectados a la red TCN \cite{mvb-pub-3}.
+La mayoría de los equipos desarrollados hasta la fecha que funcionan de acuerdo al estándar TCN se basan en dos ASICs diferentes: el circuito MVBCS1 \cite{mvbcs1}, producido originalmente por la compañía ABB, aunque hoy en día es comercializado por Siemens, y el MVBC02C \cite{mvbc02c}, producido por Bombardier. Debido a su naturaleza, estos circuitos presentan características rígidas que no son apropiadas para satisfacer la amplia gama de posibilidades con respecto al tipo de nodos conectados a la red TCN \cite{mvb-pub-3}.
 
-Otra publicación de interés es \textit{A Novel SoC Architecture for a MVB Slave Node} \cite{mvb-pub-3}, donde se describe el diseño de una arquitectura SoC\footnote{System on a chip.} compatible con el estándar TCN, basado en una FPGA\footnote{Field-programmable gate array.}.
+Otra publicación de interés es \textit{A Novel SoC Architecture for a MVB Slave Node} \cite{mvb-pub-3}, donde se describe el diseño de una arquitectura SoC compatible con el estándar TCN, basado en una FPGA.
 
 Es posible encontrar en el mercado soluciones más intergadas, que podrían proporcionar una solución parcial a los problemas que afronta Trenes Argentinos. A continuación se presentan algunos de estos dispositivos, así como sus características principales.
 
@@ -54,7 +55,7 @@ El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer \cite{yacer
 
 Los analizadores del bus WTB y MVB de la empresa AMiT Transportation \cite{amit} son dispositivos de bus pasivos que monitorean el tráfico en la red y lo pasan al bus Ethernet en tramas UDP. Se conecta una PC al bus Ethernet con un programa para recibir y evaluar las tramas UDP.
 
-El analizador solo monitorea el bus, y es "invisible" para otros dispositivos. Se monitorean todas las tramas WTB o MVB en el bus, que son transmitidas por el bus Ethernet a la PC. El producto incluye un complemento para el programa de código abierto Wireshark \cite{wireshark}, que permite analizar las tramas capturadas.
+El analizador solo monitorea el bus, y es ``invisible'' para otros dispositivos. Se monitorean todas las tramas WTB o MVB en el bus, que son transmitidas por el bus Ethernet a la PC. El producto incluye un complemento para el programa de código abierto Wireshark \cite{wireshark}, que permite analizar las tramas capturadas.
 
 \begin{figure}[htbp]
 	\centering
@@ -75,7 +76,7 @@ El sistema de diagnóstico MVB de la empresa Duagon \cite{duagon} está diseñad
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.5\textwidth]{./Figures/duagon.png}
-	\caption[Duagon -- D442 MVB Diagnostic System]{El sistema de diagnóstico MVB de la empresa Duagon}
+	\caption[Duagon -- D442 MVB Diagnostic System]{El sistema de diagnóstico MVB de la empresa Duagon.}
 \end{figure}
 
 
