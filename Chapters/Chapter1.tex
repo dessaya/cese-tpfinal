@@ -21,13 +21,15 @@ La empresa Trenes Argentinos \cite{web:sofse} adquirió en 2013 un total de 705 
 
 Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los componentes comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (Train Communication Network, IEC 61375-1 \cite{iec61375-1}).
 
-Actualmente, Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de poder capturar la información disponible, o agregar dispositivos de desarrollo propio.
-Además, no dispone de un sistema de monitoreo a distancia que permita observar en tiempo real el estado de cada uno de los componentes de una formación ferroviaria.
-La empresa cuenta con un sistema de almacenamiento histórico del estado de los componentes, pero se trata de un sistema propietario que registra solo un subconjunto de los datos disponibles, y por una duración limitada.
+Actualmente Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de poder capturar la información disponible, o agregar dispositivos de desarrollo propio.
+Las EMU ofrecen una visualización del estado de algunos componentes en la cabina del conductor, pero no todos los valores están representados.
+Tampoco se dispone de un sistema de monitoreo que permita observar dichos valores a distancia.
+Se cuenta con un sistema de almacenamiento histórico del estado de los componentes, pero se trata de un sistema propietario que registra solo un subconjunto de los datos disponibles, y por una duración limitada.
 
-Estas limitaciones se vuelven más evidentes con frecuencia. Un ejemplo común es cuando una formación queda varada en un punto alejado de una estación, obligando a los técnicos a trasladarse personalmente para evaluar el problema.
+Estas limitaciones adquieren relevancia en situaciones frecuentes.
+Un ejemplo común es cuando una formación queda varada en un punto alejado de una estación, obligando a los técnicos a trasladarse personalmente para evaluar el problema, provocando demoras en el servicio.
 También es común la quema de fusibles, un inconveniente difícil de diagnosticar sin el monitoreo de variables como la tensión de línea.
-Otro desafío adicional es la falta de control sobre las variables del sistema de aire acondicionado, lo que dificulta garantizar el confort y la seguridad de los pasajeros.
+Otro desafío adicional es la falta de almacenamiento de las variables relacionadas con la temperatura de los coches y el estado del sistema de aire acondicionado, lo que dificulta realizar un análisis del sistema de climatización de forma sencilla.
 
 Otro organismo involucrado en este trabajo es el Grupo de Investigación en Calidad y Seguridad de las Aplicaciones Ferroviarias (GICSAFe) \cite{web:gicsafe}, que desarrolla sistemas electrónicos e informáticos para para uso en el ámbito ferroviario. El desarrollo de estos sistemas permite sustituir importaciones, evitar la dependencia de tecnología cerrada que debe mantenida durante décadas, y generar trabajo con alto valor agregado. En este contexto GICSAFe decide trabajar en conjunto con Trenes Argentinos para buscar una solución a los problemas mencionados.
 
@@ -94,8 +96,16 @@ Los objetivos planteados en el PDE son:
 \item Desarrollar la capacidad de inyectar datos en la red a partir del conocimiento adquirido en las etapas previas.
 \end{enumerate}
 
-Para resolver dichos objetivos, se evalúa realizar un prototipo basado en el chip MVBC02C. Este proyecto está vinculado con el Trabajo Final de la CESE de Gustavo Paredes.
+Para resolver dichos objetivos, se evaluó realizar un prototipo basado en el chip MVBC02C. Este proyecto está vinculado con el Trabajo Final de la CESE del Tec. Univ. Gustavo Fabián Paredes, bajo la dirección del Esp. Ing. Alejandro Permingeat, titulado \textit{Desarrollo de un sistema de monitoreo de redes TCN}. Lamentablemente, al día de la fecha este proyecto no ha sido terminado, principalmente porque hay muy poca información acerca de cómo utilizar el chip MVBC02C.
 
-\textcolor{blue}{Nota: llegué hasta acá. Luego seguiría la explicación de que Gustavo no llegó a terminar su trabajo, principalmente porque hay muy poca información acerca de cómo utilizar el chip. Por eso se decide simplificar los requerimientos y hacer un prototipo utilizando un microcontrolador.}
+Es por esto que para la elaboración de este trabajo se decidió abandonar el requerimiento 3 (inyectar datos en la red) y hacer un prototipo más simple, basado en un microcontrolador en lugar del chip MVBC02C.
 
 \section{Alcance y objetivos}
+
+En este trabajo se propone realizar un dispositivo que permita monitorear el tráfico de la red TCN, en particular del bus MVB (ver sección \ref{sec:tcn}). Los requerimientos principales son:
+
+\begin{enumerate}
+\item El dispositivo debe poder conectarse al bus MVB mediante alguno de los conectores disponibles en la formación ferroviaria, de tipo DB9.
+\item El dispositivo debe poder capturar y decodificar tramas de la red MVB en tiempo real.
+\item El dispositivo debe poder almacenar la información capturada por un tiempo determinado.
+\end{enumerate}
