@@ -8,9 +8,6 @@ En este capítulo se presentan las motivaciones que guiaron la elaboración de e
 
 La empresa Trenes Argentinos \cite{web:sofse} adquirió en 2013 un total de 705 unidades eléctricas múltiples (EMU) a la empresa china CRRC Qingdao Sifang \cite{web:sifang} \cite{licitacion1}. Estos vehículos prestan servicios en las líneas Mitre, Sarmiento y Roca desde 2014 \cite{emu:roca} \cite{emu:mitre-sarmiento}.
 
-% TODO: la licitacion1 es para las lineas Sarmiento y Mitre. Falta la de Roca.
-% TODO: esta bien citar wikipedia?
-
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=.6\textwidth]{./Figures/1082px-Línea_Mitre_Retiro.jpg}
@@ -19,74 +16,78 @@ La empresa Trenes Argentinos \cite{web:sofse} adquirió en 2013 un total de 705 
 \end{figure}
 \footnotetext{Fotografía por Casa Rosada (Argentina Presidencia de la Nación), CC BY-SA 2.0, \url{https://commons.wikimedia.org/w/index.php?curid=39117175}}
 
-Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los componentes comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (Train Communication Network, IEC 61375-1 \cite{iec61375-1}).
+Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los componentes comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (Train Communication Network, IEC 61375-1 \cite{iec61375-1}). La red TCN es una combinación jerárquica de dos buses de datos: WTB (Wire Train Bus) para interconectar los diferentes vehículos en una formación, y MVB (Multifunction Vehicle Bus) para interconectar los dispositivos dentro de cada vehículo.
 
-Actualmente Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de poder capturar la información disponible, o agregar dispositivos de desarrollo propio.
+Actualmente Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de que puedan capturar la información disponible, o agregar dispositivos de desarrollo propio.
 Las EMU ofrecen una visualización del estado de algunos componentes en la cabina del conductor, pero no todos los valores están representados.
 Tampoco se dispone de un sistema de monitoreo que permita observar dichos valores a distancia.
 Se cuenta con un sistema de almacenamiento histórico del estado de los componentes, pero se trata de un sistema propietario que registra solo un subconjunto de los datos disponibles, y por una duración limitada.
 
 Estas limitaciones adquieren relevancia en situaciones frecuentes.
-Un ejemplo común es cuando una formación queda varada en un punto alejado de una estación, obligando a los técnicos a trasladarse personalmente para evaluar el problema, provocando demoras en el servicio.
-También es común la quema de fusibles, un inconveniente difícil de diagnosticar sin el monitoreo de variables como la tensión de línea.
+Por ejemplo, cuando una formación queda varada en un punto alejado de una estación, los técnicos se ven obligados a trasladarse personalmente para evaluar el problema, provocando demoras en el servicio.
+También es habitual la quema de fusibles, un inconveniente difícil de diagnosticar sin el monitoreo de variables como la tensión de línea.
 Otro desafío adicional es la falta de almacenamiento de las variables relacionadas con la temperatura de los coches y el estado del sistema de aire acondicionado, lo que dificulta realizar un análisis del sistema de climatización de forma sencilla.
 
-Otro organismo involucrado en este trabajo es el Grupo de Investigación en Calidad y Seguridad de las Aplicaciones Ferroviarias (GICSAFe) \cite{web:gicsafe}, que desarrolla sistemas electrónicos e informáticos para para uso en el ámbito ferroviario. El desarrollo de estos sistemas permite sustituir importaciones, evitar la dependencia de tecnología cerrada que debe mantenida durante décadas, y generar trabajo con alto valor agregado. En este contexto GICSAFe decide trabajar en conjunto con Trenes Argentinos para buscar una solución a los problemas mencionados.
+Con el objetivo de buscar una solución a los problemas mencionados, Trenes Argentinos trabaja en conjunto con el Grupo de Investigación en Calidad y Seguridad de las Aplicaciones Ferroviarias (GICSAFe) \cite{web:gicsafe}. Esta organización desarrolla sistemas electrónicos e informáticos para uso en el ámbito ferroviario, que permiten sustituir importaciones, evitar la dependencia de tecnología cerrada que debe ser mantenida durante décadas, y generar trabajo con alto valor agregado.
 
 \section{Estado del arte}
 
 \label{estadodelarte}
 
-La norma IEC 61375-1 es la fuente de información principal acerca del estándar TCN. Lamentablemente no hay mucha información adicional de libre acceso acerca del estándar, como artículos y notas de aplicación. Entre las publicaciones que citan a la norma tal vez las más relevantes son \textit{Design and implementation of MVB protocol analyzer} \cite{mvb-pub-1} (escrita en idioma chino) y \textit{An MVB signal capturer based on microcontrollers for metro train on-line health monitoring system} \cite{mvb-pub-2}, siendo ambas demasiado cortas como para aportar información realmente útil.
-
-La mayoría de los equipos desarrollados hasta la fecha que funcionan de acuerdo al estándar TCN se basan en dos ASICs diferentes: el circuito MVBCS1 \cite{mvbcs1}, producido originalmente por la compañía ABB, aunque hoy en día es comercializado por Siemens, y el MVBC02C \cite{mvbc02c}, producido por Bombardier. Debido a su naturaleza, estos circuitos presentan características rígidas que no son apropiadas para satisfacer la amplia gama de posibilidades con respecto al tipo de nodos conectados a la red TCN \cite{mvb-pub-3}.
-
+La norma IEC 61375-1 es la fuente de información principal a tener en cuenta respecto del estándar TCN. Lamentablemente, no hay mucha información de libre acceso acerca del estándar, como artículos y notas de aplicación. Entre las publicaciones encontradas que citan a la norma las más relevantes son \textit{Design and implementation of MVB protocol analyzer} \cite{mvb-pub-1} (escrita en idioma chino) y \textit{An MVB signal capturer based on microcontrollers for metro train on-line health monitoring system} \cite{mvb-pub-2}, aunque ambas son demasiado cortas como para aportar información realmente útil.
 Otra publicación de interés es \textit{A Novel SoC Architecture for a MVB Slave Node} \cite{mvb-pub-3}, donde se describe el diseño de una arquitectura SoC compatible con el estándar TCN, basado en una FPGA.
 
-Es posible encontrar en el mercado soluciones más intergadas, que podrían proporcionar una solución parcial a los problemas que afronta Trenes Argentinos. A continuación se presentan algunos de estos dispositivos, así como sus características principales.
+La mayoría de los equipos desarrollados hasta la fecha que funcionan de acuerdo al estándar TCN se basan en dos ASICs diferentes: el circuito MVBCS1 \cite{mvbcs1}, producido originalmente por la compañía ABB (aunque hoy en día es comercializado por Siemens) y el MVBC02C \cite{mvbc02c}, producido por Bombardier. Debido a su naturaleza, estos circuitos integrados no son lo suficientemente versátiles como para satisfacer la amplia gama de posibilidades con respecto al tipo de nodos conectados a la red TCN \cite{mvb-pub-3}.
+
+Es posible encontrar en el mercado soluciones integrales, que podrían resolver parcialmente los problemas que afronta Trenes Argentinos. A continuación se presentan algunos de estos dispositivos, así como sus características principales.
 
 \subsection{Yacer -- MVB-Analyzer}
 
-El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer \cite{yacer} proporciona una interfaz MVB, dos interfaces Ethernet y dos interfaces de expansión para recopilar y recibir tramas MVB y WTB, entre otras, y enviarlas a una computadora a través de una interfaz Ethernet. El producto incluye un software que permite analizar los datos del bus MVB y realizar simulaciones para encontrar la resolución de problemas y evaluar el funcionamiento del bus MVB.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[height=20\baselineskip]{./Figures/yacer.jpg}
-	\caption[Yacer -- MVB-Analyzer]{El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer.}
-\end{figure}
+El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer \cite{yacer} (fig. \ref{fig:yacer}) proporciona una interfaz MVB, dos interfaces Ethernet y dos interfaces de expansión para recopilar y recibir tramas MVB y WTB, entre otras, y enviarlas a una computadora a través de una interfaz Ethernet. El producto incluye un software que permite analizar los datos del bus MVB y realizar simulaciones para encontrar la resolución de problemas y evaluar el funcionamiento del bus MVB.
 
 \subsection{AMiT Transportation -- WTB and MVB Analyzers}
 
-Los analizadores del bus WTB y MVB de la empresa AMiT Transportation \cite{amit} son dispositivos de bus pasivos que monitorean el tráfico en la red y lo pasan al bus Ethernet en tramas UDP. Se conecta una PC al bus Ethernet con un programa para recibir y evaluar las tramas UDP.
+Los analizadores del bus WTB y MVB de la empresa AMiT Transportation \cite{amit} (fig. \ref{fig:amit}) son dispositivos de bus pasivos que monitorean el tráfico en la red y lo pasan al bus Ethernet en tramas UDP.
 
-El analizador solo monitorea el bus, y es ``invisible'' para otros dispositivos. Se monitorean todas las tramas WTB o MVB en el bus, que son transmitidas por el bus Ethernet a la PC. El producto incluye un complemento para el programa de código abierto Wireshark \cite{wireshark}, que permite analizar las tramas capturadas.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[height=20\baselineskip]{./Figures/amit.jpg}
-	\caption[AMiT Transportation -- WTB and MVB Analyzers]{El analizador de bus MVB de la empresa AMiT Transportation.}
-\end{figure}
-
+El analizador solo monitorea el bus, y es ``invisible'' para otros dispositivos. Se monitorean todas las tramas WTB o MVB en el bus, que son transmitidas por el bus Ethernet. El producto incluye un complemento para el software de código abierto Wireshark \cite{wireshark}, que permite analizar las tramas capturadas con una PC.
 
 \subsection{Duagon -- D442 MVB Diagnostic System}
 
-El sistema de diagnóstico MVB de la empresa Duagon \cite{duagon} está diseñado para depurar dispositivos y redes MVB. El sistema se conecta a una PC común, y puede funcionar en dos modos de operación:
+El sistema de diagnóstico MVB de la empresa Duagon \cite{duagon} (fig. \ref{fig:duagon}) está diseñado para depurar dispositivos y redes MVB. El sistema se conecta a una PC común, y puede funcionar en dos modos de operación:
 
 \begin{itemize}
-\item En el modo \emph{monitor}, el sistema permite investigar dispositivos MVB en el bus, leer y escribir la base de datos MVB, y escanear los puertos de los dispositivos, entre otras cosas.
-\item En el modo \emph{servidor}, el sistema permite ejecutar aplicaciones programadas por el usuario. Se incluye una biblioteca de programación MVB con todas las funciones en el sistema de diagnóstico para controlar una red MVB completa.
+\item En el modo ``monitor'', el sistema permite investigar dispositivos MVB en el bus, leer y escribir la base de datos MVB, y escanear los puertos de los dispositivos, entre otras cosas.
+\item En el modo ``servidor'', el sistema permite ejecutar aplicaciones programadas por el usuario. Se incluye una biblioteca de programación MVB con todas las funciones en el sistema de diagnóstico para controlar una red MVB completa.
 \end{itemize}
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.5\textwidth]{./Figures/duagon.png}
-	\caption[Duagon -- D442 MVB Diagnostic System]{El sistema de diagnóstico MVB de la empresa Duagon.}
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[height=17\baselineskip]{./Figures/yacer.jpg}
+        \caption[Yacer -- MVB-Analyzer]{El analizador de protocolo \textit{MVB-Analyzer} de la empresa Yacer.}
+        \label{fig:yacer}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[height=17\baselineskip]{./Figures/amit.jpg}
+        \caption[AMiT Transportation -- WTB and MVB Analyzers]{El analizador de bus MVB de la empresa AMiT Transportation.}
+        \label{fig:amit}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.6\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{./Figures/duagon.png}
+        \caption[Duagon -- D442 MVB Diagnostic System]{El sistema de diagnóstico MVB de la empresa Duagon.}
+        \label{fig:duagon}
+    \end{subfigure}
+    \caption{Algunos de los dispositivos de captura disponibles en el mercado.}
 \end{figure}
-
 
 \section{Propuesta inicial}
 
-Si bien los productos listados en la sección \ref{estadodelarte} podrían ser de utilidad para Trenes Argentinos, no resolverían los problemas principales, que son la falta de \emph{know-how} y la dependencia de tecnología cerrada. Por esta razón, el GICSAFe forma varios grupos de trabajo para generar tecnología y conocimiento propoio sobre la red TCN. Como parte de esta iniciativa se presenta el Proyecto de Desarrollo Estratégico UBA-PDE Nº 15/2020 \cite{pde2020}, titulado ``Sistema de monitoreo y gestión de la red TCN en formaciones ferroviarias''.
+Si bien los productos listados en la sección \ref{estadodelarte} podrían ser de utilidad para Trenes Argentinos, no resolverían los problemas principales, que son la falta de \emph{know-how} y la dependencia de tecnología cerrada. Por esta razón, el GICSAFe forma varios grupos de trabajo para generar tecnología y conocimiento propio sobre la red TCN. Como parte de esta iniciativa se presenta el Proyecto de Desarrollo Estratégico UBA-PDE Nº 15/2020 \cite{pde2020}, titulado ``Sistema de monitoreo y gestión de la red TCN en formaciones ferroviarias''.
 
 Los objetivos planteados en el PDE son:
 
@@ -96,13 +97,15 @@ Los objetivos planteados en el PDE son:
 \item Desarrollar la capacidad de inyectar datos en la red a partir del conocimiento adquirido en las etapas previas.
 \end{enumerate}
 
-Para resolver dichos objetivos, se evaluó realizar un prototipo basado en el chip MVBC02C. Este proyecto está vinculado con el Trabajo Final de la CESE del Tec. Univ. Gustavo Fabián Paredes, bajo la dirección del Esp. Ing. Alejandro Permingeat, titulado \textit{Desarrollo de un sistema de monitoreo de redes TCN}. Lamentablemente, al día de la fecha este proyecto no ha sido terminado, principalmente porque hay muy poca información acerca de cómo utilizar el chip MVBC02C.
-
-Es por esto que para la elaboración de este trabajo se decidió abandonar el requerimiento 3 (inyectar datos en la red) y hacer un prototipo más simple, basado en un microcontrolador en lugar del chip MVBC02C.
+Para resolver dichos objetivos, se evaluó realizar un prototipo basado en el chip MVBC02C.
+Luego de analizar la información disponible acerca del chip, y tras diversas reuniones con autoridades y técnicos de Trenes Argentinos, se decidió abandonar el objetivo de inyectar datos en la red.
+Entre las razones se destacan la escasa información disponible acerca del chip MVBC02C, y el riesgo asociado a la seguridad funcional de la formación, ya que por la red TCN circula información crítica, como los sistemas de frenado, tracción y puertas.
+Por otro lado, el resultado que podría obtenerse no resulta tan relevante para Trenes Argentinos frente al desafío que esto representa.
+Como resultado, se decidió desarrollar un prototipo más simple utilizando un microcontrolador en lugar del chip MVBC02C.
 
 \section{Alcance y objetivos}
 
-En este trabajo se propone realizar un dispositivo que permita monitorear el tráfico de la red TCN, en particular del bus MVB (ver sección \ref{sec:tcn}). Los requerimientos principales son:
+En este trabajo se propone realizar un dispositivo que permita monitorear el tráfico de la red TCN, en particular del bus MVB. Los requerimientos principales son:
 
 \begin{enumerate}
 \item El dispositivo debe poder conectarse al bus MVB mediante alguno de los conectores disponibles en la formación ferroviaria, de tipo DB9.
