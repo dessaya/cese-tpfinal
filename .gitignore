@@ -1,5 +1,4 @@
-TI_*.pdf
-memoria_v*.pdf
+artifacts/*
 
 ## Core latex/pdflatex auxiliary files:
 *.aux
