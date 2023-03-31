@@ -13,7 +13,7 @@ La red TCN es una combinación jerárquica de dos buses de datos para transmitir
         \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
 \end{figure}
 
-Teniendo en cuenta que el dispositivo desarrollado se conecta al bus MVB, a continuación se exponen las características principales de este bus de comunicación.
+Dado que el dispositivo desarrollado se conecta al bus MVB, a continuación se exponen las características principales de este bus de comunicación.
 
 \subsection{El bus MVB}
 
@@ -22,7 +22,7 @@ El MVB es el bus que interconecta diferentes dispositivos ubicados en el mismo v
 El MVB transporta tres tipos de información:
 
 \begin{itemize}
-\item \texttt{Process\_Data}: transmisión \textit{broadcast} periódica con dirección de origen, con un período de hasta 1 ms.
+\item \texttt{Process\_Data}: transmisión \textit{broadcast} periódica con dirección de origen, con un período de hasta 1~ms.
 \item \texttt{Message\_Data}: transmisión bajo demanda, con dirección de destino \textit{unicast} o \textit{broadcast}.
 \item \texttt{Supervisory\_Data}: datos intercambiados con el propósito de resolución de eventos, transferencia de control \textit{master} o transmisión de información de tipo \texttt{Device\_Status}.
 \end{itemize}
@@ -32,12 +32,12 @@ El MVB transporta tres tipos de información:
 El bus MVB ofrece tres opciones para la capa física:
 
 \begin{itemize}
-\item El medio Electrical Short Distance (ESD), para distancias de hasta 20 m, que soporta hasta 32 dispositivos por segmento, con transceptores de tipo RS-485.
-\item El medio Electrical Middle Distance (EMD), para distancias de hasta 200 m, que soporta hasta  32 dispositivos por segmento, con transformadores y transceptores compatibles con la norma IEC 61158-2 \cite{iec61158_2}.
-\item El medio Optical Glass Fibre (OGF), para distancias de hasta 2000 m, soportando conexiones punto a punto o subredes de topología tipo estrella.
+\item El medio Electrical Short Distance (ESD), para distancias de hasta 20~m, que soporta hasta 32 dispositivos por segmento, con transceptores de tipo RS-485.
+\item El medio Electrical Middle Distance (EMD), para distancias de hasta 200~m, que soporta hasta  32 dispositivos por segmento, con transformadores y transceptores compatibles con la norma IEC 61158-2 \cite{iec61158_2}.
+\item El medio Optical Glass Fibre (OGF), para distancias de hasta 2000~m, y soporta conexiones punto a punto o subredes de topología tipo estrella.
 \end{itemize}
 
-En algunas formaciones el bus MVB puede abarcar varios vehículos, y un segmento EMD puede abarcar hasta 200 m, lo que equivale a unos 4 vehículos, sin repetidores. La norma recomienda este medio para conectar vehículos que se acoplan y desacoplan con frecuencia en la vía.
+En algunas formaciones el bus MVB puede abarcar varios vehículos, y un segmento EMD puede abarcar hasta 200~m, lo que equivale a unos 5 vehículos, sin repetidores. La norma recomienda este medio para conectar vehículos que se acoplan y desacoplan con frecuencia en la vía.
 
 Las direcciones de los dispositivos se asignan durante la configuración de la red y no cambian durante la operación. Puede haber diferentes buses en un vehículo, interconectados mediante un \textit{gateway} al bus WTB.
 
@@ -50,9 +50,9 @@ Las direcciones de los dispositivos se asignan durante la configuración de la r
 
 \subsection{Señalización MVB}
 
-Todos los medios MVB operan a una velocidad unificada de 1,5 Mbit/s.
-
-La información se transmite utilizando una codificación Manchester, que combina en una única señal la información y el \textit{clock}. Un ``1'' se transmite como una transición negativa en el medio de una celda de bit, y un ``0'' se transmite como una transición positiva.
+Todos los medios MVB operan a una velocidad unificada de 1,5~Mbit/s.
+La información se transmite utilizando una codificación Manchester, que combina en una única señal la información y el \textit{clock}.
+Un ``1'' se transmite como una transición negativa en el medio de una celda de bit, y un ``0'' se transmite como una transición positiva.
 
 \begin{figure}[htbp]
 	\centering
