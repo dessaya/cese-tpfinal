@@ -4,24 +4,32 @@ En este capítulo se presenta un resumen de los conceptos más relevantes acerca
 
 \section{La red TCN}
 
-La red TCN es una combinación jerárquica de dos buses de datos para transmitir información dentro de una formación ferroviaria. El Multifunction Vehicle Bus (MVB) interconecta los diferentes dispositivos presentes dentro de cada vehículo, y el Wire Train Bus (WTB) interconecta los diferentes vehículos. Los componentes de la red TCN están estandarizados en la norma IEC 61375-1.
+La red TCN es una combinación jerárquica de dos buses de datos en los que se transmite información dentro de una formación ferroviaria. El Multifunction Vehicle Bus (MVB) interconecta los diferentes dispositivos presentes dentro de cada vehículo, y el Wire Train Bus (WTB) interconecta los diferentes vehículos. Los componentes de la red TCN están estandarizados en la norma IEC 61375-1. En la figura~\ref{fig:tcn-mvb-wtb} se muestra un diagrama simplificado de la arquitectura TCN.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=.8\textwidth]{./Figures/tcn-mvb-wtb.png}
-	\caption[Wire Train Bus y Multifunction Vehicle Bus]{Wire Train Bus y Multifunction Vehicle Bus.
-        \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
+    {
+    \fontsize{9pt}{9pt}\selectfont
+    \input{./Figures/tcn-mvb-wtb.pdf_tex}
+    }
+	\caption[Wire Train Bus y Multifunction Vehicle Bus]{Wire Train Bus y Multifunction Vehicle Bus.\footnotemark}
+    \label{fig:tcn-mvb-wtb}
 \end{figure}
+\footnotetext{Dibujo del tren por Freepik (\url{https://www.freepik.com/free-vector/collection-different-types-trains_1114167.htm})}
 
 Dado que el dispositivo desarrollado se conecta al bus MVB, a continuación se exponen las características principales de este bus de comunicación.
 
 \subsection{El bus MVB}
 
-El bus MVB interconecta diferentes dispositivos ubicados en el mismo vehículo o en diferentes vehículos. Proporciona tanto la interconexión de equipos programables entre sí como la interconexión de estos equipos con sus sensores y actuadores. El MVB puede direccionar hasta 4095 dispositivos, y puede funcionar como \textit{train bus} en segmentos en los que los vehículos no son separados durante su operación normal (abarcando de esta manera más de un vehículo).
+El bus MVB interconecta diferentes dispositivos ubicados en el mismo vehículo o en diferentes vehículos que no son separados con frecuencia. El MVB puede direccionar hasta 4095 dispositivos, y proporciona tanto la interconexión de equipos programables entre sí como la interconexión de estos equipos con sus sensores y actuadores.
 
-\subsection{Capa física MVB}
+La estructura de MVB sigue el modelo OSI \cite{ISO7498-1}, en el que se definen siete capas de abstracción, cada una con una función específica para la transmisión de datos. A continuación se describen las capas de más abajo, que son las más relevantes para este trabajo.
 
-El bus MVB ofrece tres opciones para la capa física:
+La estructura de MVB sigue el modelo OSI \cite{ISO7498-1}, que establece siete capas de abstracción para la transmisión de datos. A continuación se describen las tres capas inferiores, que son las más relevantes para el desarrollo de este trabajo.
+
+\subsection{Capa física}
+
+El bus MVB ofrece tres opciones de medios físicos para la capa inferior:
 
 \begin{itemize}
 \item El medio Electrical Short Distance (ESD), para distancias de hasta 20~m, que soporta hasta 32 dispositivos por segmento, con transceptores de tipo RS-485.
@@ -29,8 +37,9 @@ El bus MVB ofrece tres opciones para la capa física:
 \item El medio Optical Glass Fibre (OGF), para distancias de hasta 2000~m, y soporta conexiones punto a punto o subredes de topología tipo estrella.
 \end{itemize}
 
-Puede haber diferentes buses en un vehículo, interconectados mediante un \textit{gateway} al bus WTB, como se muestra en la fig.~\ref{fig:emd-esd-wtb}.
-La norma recomienda el medio EMD para conectar vehículos que se acoplan y desacoplan con frecuencia en la vía.
+Puede haber diferentes buses en un vehículo, interconectados mediante un \textit{gateway} al bus WTB.
+También es posible que el bus MVB abarque más de un vehículo, y en este caso la norma recomienda el medio EMD.
+Un ejemplo de esta configuración se ilustra en la figura~\ref{fig:emd-esd-wtb}.
 
 \begin{figure}[htbp]
 	\centering
@@ -40,9 +49,8 @@ La norma recomienda el medio EMD para conectar vehículos que se acoplan y desac
     \label{fig:emd-esd-wtb}
 \end{figure}
 
-En algunas formaciones el bus MVB puede abarcar varios vehículos, y un segmento EMD puede abarcar hasta 200~m, lo que equivale a unos 5 vehículos, sin repetidores.
-Como se muestra en la fig.~\ref{fig:segmento}, cada dispositivo conectado a un segmento EMD tiene dos conectores de tipo DB9 que van, respectivamente, al dispositivo anterior y siguiente en el segmento. Los dispositivos en los extremos del segmento tienen un terminador.
-En la fig.~\ref{fig:db9} se muestra la configuración de pines de estos conectores, que conforman a la norma IEC 61158-2 de tipo 6 (RS-485).
+En la figura~\ref{fig:segmento} se ilustra un segmento EMD.
+Cada dispositivo conectado a un segmento EMD tiene dos conectores D-sub de 9 pines que van, respectivamente, al dispositivo anterior y siguiente en el segmento. Los dispositivos en los extremos del segmento tienen un terminador.
 
 \begin{figure}[htbp]
 	\centering
@@ -52,6 +60,9 @@ En la fig.~\ref{fig:db9} se muestra la configuración de pines de estos conector
     \label{fig:segmento}
 \end{figure}
 
+En la figura~\ref{fig:db9} se muestra la configuración de pines de los conectores.
+La transmisión de la señal digital se realiza mediante la tensión diferencial entre los pares Data\_N y Data\_P. La norma permite que haya una única línea (A) o dos líneas (A y B) para proporcionar redundancia.
+
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=0.8\textwidth]{./Figures/db9-emd.png}
@@ -59,6 +70,8 @@ En la fig.~\ref{fig:db9} se muestra la configuración de pines de estos conector
         \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
     \label{fig:db9}
 \end{figure}
+
+\subsection{Señalización}
 
 Todos los medios MVB operan a una velocidad unificada de 1,5~Mbit/s.
 La información se transmite utilizando una codificación Manchester, que combina en una única señal la información y el \textit{clock}.
@@ -71,7 +84,7 @@ Un ``1'' se transmite como una transición negativa en el medio de una celda de 
         \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
 \end{figure}
 
-\subsection{Tramas MVB}
+\subsection{Tramas y telegramas}
 
 En el bus MVB se transmiten dos tipos de tramas:
 
@@ -98,14 +111,13 @@ Las tramas \textit{master} tienen una longitud fija de 16 bits (sin contar los d
 \item Un campo de 12 bits, que puede contener una dirección de destino, o parámetros específicos al \texttt{F\_code}.
 \end{itemize}
 
-Todos los dispositivos conectados al bus decodifican la trama \textit{master}. El dispositivo direccionado luego responde con su trama \textit{slave}, que a su vez puede ser recibida por otros dispositivos.
-Las direcciones de los dispositivos se asignan durante la configuración de la red y no cambian durante la operación.
+Todos los dispositivos conectados al bus decodifican la trama \textit{master}. El dispositivo encuestado luego responde con su trama \textit{slave}, que a su vez puede ser recibida por otros dispositivos.
 
-Son de particular interés las tramas con \texttt{F\_code = 0..4}. Este tipo de telegramas son denominados \texttt{Process\_Data}, y en este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto en el bus direcciona unívocamente una \textit{variable} en el bus, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser direccionado responde con el valor actual de la variable correspondiente.
+Son de particular interés las tramas con \texttt{F\_code} entre 0 y 4. Este tipo de telegramas son denominados \texttt{Process\_Data}, y en este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
 
 \section{TCN en las formaciones de Trenes Argentinos}
 
-En la fig.~\ref{fig:tms} se muestra un diagrama de la topología de la red TCN en un segmento de una formación, compuesto por 3 vehículos EMU. Para el bus MVB se utiliza en este caso el medio físico EMD, y por lo tanto el dispositivo desarrollado en este trabajo es compatible con este medio.
+En la figura~\ref{fig:tms} se muestra un diagrama de la topología de la red TCN en un segmento de una formación, compuesto por 3 vehículos EMU. Los buses MVB están implementado con el medio físico EMD.
 
 \begin{figure}[htbp]
 	\centering
@@ -115,7 +127,7 @@ En la fig.~\ref{fig:tms} se muestra un diagrama de la topología de la red TCN e
     \label{fig:tms}
 \end{figure}
 
-En la fig.~\ref{fig:rcme} se muestra una fotografía del interior de un \textit{rack}, en la cabina del conductor de una formación de la línea Mitre. En la imagen se observa uno de los módulos conectados en el bus MVB, el módulo de comunicación RCMe, que a su vez controla las puertas (DOORR, DOORL), el sistema de aire acondicionado (HVAC) y el sistema de información al pasajero (PIDS). En el panel frontal del módulo RCMe, los conectores DB9 X1 y X2 corresponden al bus MVB.
+En la figura~\ref{fig:rcme} se muestra una fotografía del interior de un \textit{rack}, en la cabina del conductor de una formación de la línea Mitre. En la imagen se observa uno de los módulos conectados en el bus MVB, el módulo de comunicación RCMe, que controla las puertas (DOORR, DOORL), el sistema de aire acondicionado (HVAC) y el sistema de información al pasajero (PIDS). En el panel frontal del módulo RCMe, los conectores DB9 X1 y X2 corresponden al bus MVB.
 
 \begin{figure}[htbp]
 	\centering
@@ -125,7 +137,7 @@ En la fig.~\ref{fig:rcme} se muestra una fotografía del interior de un \textit{
     \label{fig:rcme}
 \end{figure}
 
-En la cabina del conductor, la pantalla HMI (Human Machine Interface) tiene un modo de operación en el que permite visualizar el valor de algunas variables que son transmitidas periódicamente en forma de \texttt{Process\_Data}. En la fig.~\ref{fig:hmi} se puede ver que en el puerto 0 hay una variable de 16 bits cuyo valor binario actual es 1100 0001 0110 0101, o 33702 si se interpreta como un número decimal.
+En la cabina del conductor, la pantalla HMI (Human Machine Interface) tiene un modo de operación que permite visualizar el valor de algunas variables que son transmitidas periódicamente en forma de \texttt{Process\_Data}. En la figura~\ref{fig:hmi} se puede ver que en el puerto 0 hay una variable de 16 bits cuyo valor binario actual es 1100 0001 0110 0101, o 33702 si se interpreta como un número decimal.
 
 \begin{figure}[htbp]
 	\centering
