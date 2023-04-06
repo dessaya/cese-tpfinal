@@ -26,7 +26,7 @@ El bus MVB interconecta diferentes dispositivos ubicados en el mismo vehículo o
 
 La estructura de MVB sigue el modelo OSI \cite{ISO7498-1}, en el que se definen siete capas de abstracción, cada una con una función específica para la transmisión de datos. A continuación se describen las capas de más abajo, que son las más relevantes para este trabajo.
 
-La estructura de MVB sigue el modelo OSI \cite{ISO7498-1}, que establece siete capas de abstracción para la transmisión de datos. A continuación se describen las tres capas inferiores, que son las más relevantes para el desarrollo de este trabajo.
+La estructura de MVB sigue el modelo OSI \cite{ISO7498-1}, que establece siete capas de abstracción para la transmisión de datos. A continuación se describen las capas inferiores, que son las más relevantes para el desarrollo de este trabajo.
 
 \subsection{Capa física}
 
@@ -74,7 +74,7 @@ La transmisión de la señal digital se realiza mediante la tensión diferencial
 	\centering
     {
         \fontfamily{phv}
-        \fontsize{9pt}{9pt}\selectfont
+        \fontsize{8pt}{8pt}\selectfont
         \input{./Figures/db9-emd.pdf_tex}
     }
 	\caption[Configuración de pines del conector D-sub de 9 pines del medio EMD]{Configuración de pines del conector DE-9 del medio EMD. Se omite por simplicidad la interconexión de los pines 6 a 9, que se utilizan para los terminadores.}
@@ -103,7 +103,7 @@ En la figura~\ref{fig:manchester} se muestra a modo de ejemplo la transmisión d
 	\centering
     {
         \fontfamily{phv}
-        \fontsize{9pt}{9pt}\selectfont
+        \fontsize{8pt}{8pt}\selectfont
         \input{./Figures/manchester.pdf_tex}
     }
 	\caption[Transmisión de una trama master]{Transmisión de una trama \textit{master}.}
@@ -119,7 +119,7 @@ Una secuencia de una trama \textit{master} seguida de una trama \textit{slave} c
 	\centering
     {
         \fontfamily{phv}
-        \fontsize{9pt}{9pt}\selectfont
+        \fontsize{8pt}{8pt}\selectfont
         \input{./Figures/telegrama.pdf_tex}
     }
 	\caption[Un telegrama MVB]{Un telegrama MVB.}
@@ -135,31 +135,35 @@ Las tramas \textit{master} tienen una longitud fija de 16 bits (sin contar los d
 
 Todos los dispositivos conectados al bus decodifican la trama \textit{master}. El dispositivo encuestado luego responde con su trama \textit{slave}, que a su vez puede ser recibida por otros dispositivos.
 
-Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4. Este tipo de telegramas son denominados \texttt{Process\_Data}, y en este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
+\subsection{Variables}
+
+Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4, que se denominan \texttt{Process\_Data}. En este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
 
 \section{TCN en las formaciones de Trenes Argentinos}
 
-En la figura~\ref{fig:tms} se muestra un diagrama de la topología de la red TCN en un segmento de una formación, compuesto por 3 vehículos EMU. Los buses MVB están implementado con el medio físico EMD.
+En la figura~\ref{fig:tms} se muestra un diagrama simplificado de la topología de la red TCN en una sección de 3 vehículos EMU de una formación de Trenes Argentinos. En el diagrama se observa que los buses MVB están implementados con el medio físico EMD.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1\textwidth]{./Figures/tms.png}
-	\caption[Topología de la red TCN en una formación de Trenes Argentinos]{Topología de la red TCN en una formación de Trenes Argentinos.
-        \\ \todo{REVISAR: Rehacer para mejorar la legibilidad.}}
+    {
+        \fontfamily{phv}
+        \fontsize{8pt}{8pt}\selectfont
+        \input{./Figures/tms.pdf_tex}
+    }
+	\caption[Topología de la red TCN en una formación de Trenes Argentinos]{Topología de la red TCN en una formación de Trenes Argentinos.}
     \label{fig:tms}
 \end{figure}
 
-En la figura~\ref{fig:rcme} se muestra una fotografía del interior de un \textit{rack}, en la cabina del conductor de una formación de la línea Mitre. En la imagen se observa uno de los módulos conectados en el bus MVB, el módulo de comunicación RCMe, que controla las puertas (DOORR, DOORL), el sistema de aire acondicionado (HVAC) y el sistema de información al pasajero (PIDS). En el panel frontal del módulo RCMe, los conectores DE-9 X1 y X2 corresponden al bus MVB.
+En la figura~\ref{fig:rcme} se muestra una fotografía de uno de los dispositivos presentes en la cabina del conductor de una formación de la línea Mitre. Se trata del módulo de comunicación RCMe, que controla las puertas, el sistema de aire acondicionado y el sistema de información al pasajero. En el panel frontal del módulo RCMe, los conectores DE-9 X1 y X2 (destacados en la figura) corresponden al bus MVB.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.5\textwidth]{./Figures/RCMe.jpeg}
-	\caption[El módulo de comunicación RCMe]{El módulo de comunicación RCMe presente en un EMU.
-        \\ \todo{REVISAR: Agregar indicaciones y una leyenda para cada conector.}}
+	\includegraphics[width=0.6\textwidth]{./Figures/RCMe.pdf}
+	\caption[El módulo de comunicación RCMe]{El módulo de comunicación RCMe presente en un EMU. Los dos conectores DE-9 destacados corresponden al bus MVB.}
     \label{fig:rcme}
 \end{figure}
 
-En la cabina del conductor, la pantalla HMI (Human Machine Interface) tiene un modo de operación que permite visualizar el valor de algunas variables que son transmitidas periódicamente en forma de \texttt{Process\_Data}. En la figura~\ref{fig:hmi} se puede ver que en el puerto 0 hay una variable de 16 bits cuyo valor binario actual es 1100 0001 0110 0101, o 33702 si se interpreta como un número decimal.
+La pantalla HMI (Human Machine Interface), también ubicada en la cabina del conductor, tiene un modo de operación que permite visualizar el valor de algunas variables que son transmitidas periódicamente en forma de \texttt{Process\_Data}. En la figura~\ref{fig:hmi} se puede observar que en el puerto 0 hay una variable de 16 bits cuyo valor binario actual es 1100 0001 0110 0101, o 33702 si se interpreta como un número decimal.
 
 \begin{figure}[htbp]
 	\centering
