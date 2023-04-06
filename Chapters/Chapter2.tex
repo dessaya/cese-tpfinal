@@ -9,13 +9,14 @@ La red TCN es una combinación jerárquica de dos buses de datos en los que se t
 \begin{figure}[htbp]
 	\centering
     {
-    \fontsize{9pt}{9pt}\selectfont
-    \input{./Figures/tcn-mvb-wtb.pdf_tex}
+        \fontfamily{phv}
+        \fontsize{9pt}{9pt}\selectfont
+        \input{./Figures/tcn-mvb-wtb.pdf_tex}
     }
 	\caption[Wire Train Bus y Multifunction Vehicle Bus]{Wire Train Bus y Multifunction Vehicle Bus.\footnotemark}
     \label{fig:tcn-mvb-wtb}
 \end{figure}
-\footnotetext{Dibujo del tren por Freepik (\url{https://www.freepik.com/free-vector/collection-different-types-trains_1114167.htm})}
+\footnotetext{Dibujo del tren por Freepik\\(\url{https://www.freepik.com/free-vector/collection-different-types-trains_1114167.htm})}
 
 Dado que el dispositivo desarrollado se conecta al bus MVB, a continuación se exponen las características principales de este bus de comunicación.
 
@@ -43,20 +44,26 @@ Un ejemplo de esta configuración se ilustra en la figura~\ref{fig:emd-esd-wtb}.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1\textwidth]{./Figures/tcn-emd-esd-wtb.png}
-	\caption[MVB abarcando tres vehículos]{MVB abarcando tres vehículos.
-        \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
+    {
+        \fontfamily{phv}
+        \fontsize{9pt}{9pt}\selectfont
+        \input{./Figures/medios.pdf_tex}
+    }
+	\caption[MVB abarcando tres vehículos]{MVB abarcando tres vehículos.}
     \label{fig:emd-esd-wtb}
 \end{figure}
 
 En la figura~\ref{fig:segmento} se ilustra un segmento EMD.
-Cada dispositivo conectado a un segmento EMD tiene dos conectores D-sub de 9 pines que van, respectivamente, al dispositivo anterior y siguiente en el segmento. Los dispositivos en los extremos del segmento tienen un terminador.
+Cada dispositivo conectado a un segmento EMD tiene dos conectores D-sub de 9 pines (DE-9) que van, respectivamente, al dispositivo anterior y siguiente en el segmento. Los dispositivos en los extremos del segmento tienen un terminador.
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1\textwidth]{./Figures/segmento.png}
-	\caption[Un segmento EMD]{Un segmento EMD.
-        \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
+    {
+        \fontfamily{phv}
+        \fontsize{9pt}{9pt}\selectfont
+        \input{./Figures/segmento-emd.pdf_tex}
+    }
+	\caption[Un segmento EMD]{Un segmento EMD.}
     \label{fig:segmento}
 \end{figure}
 
@@ -65,27 +72,18 @@ La transmisión de la señal digital se realiza mediante la tensión diferencial
 
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=0.8\textwidth]{./Figures/db9-emd.png}
-	\caption[Configuración de pines del conector DB9 del medio EMD]{Configuración de pines del conector DB9 del medio EMD.
-        \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
+    {
+        \fontfamily{phv}
+        \fontsize{9pt}{9pt}\selectfont
+        \input{./Figures/db9-emd.pdf_tex}
+    }
+	\caption[Configuración de pines del conector D-sub de 9 pines del medio EMD]{Configuración de pines del conector DE-9 del medio EMD. Se omite por simplicidad la interconexión de los pines 6 a 9, que se utilizan para los terminadores.}
     \label{fig:db9}
 \end{figure}
 
-\subsection{Señalización}
+\subsection{Tramas}
 
-Todos los medios MVB operan a una velocidad unificada de 1,5~Mbit/s.
-La información se transmite utilizando una codificación Manchester, que combina en una única señal la información y el \textit{clock}.
-Un ``1'' se transmite como una transición negativa en el medio de una celda de bit, y un ``0'' se transmite como una transición positiva.
-
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=1\textwidth]{./Figures/manchester.png}
-	\caption[Delimitador de trama, información codificada con Manchester y la secuencia de verificación]{Delimitador de trama, información codificada con Manchester y la secuencia de verificación.
-        \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
-\end{figure}
-
-\subsection{Tramas y telegramas}
-
+Se denomina \textit{trama} a un paquete de datos transmitido por un dispositivo.
 En el bus MVB se transmiten dos tipos de tramas:
 
 \begin{itemize}
@@ -93,15 +91,36 @@ En el bus MVB se transmiten dos tipos de tramas:
 \item La trama \textit{slave}, que es transmitida por un dispositivo esclavo en respuesta a una trama \textit{master}.
 \end{itemize}
 
-Ambos tipos de tramas son precedidas por un delimitador que marca el comienzo de la transmisión, y son sucedidas por una secuencia de verificación y un delimitador para marcar la finalización.
+Todos los medios MVB operan a una velocidad unificada de 1,5~Mbit/s.
+La información se transmite utilizando una codificación Manchester, que combina en una única señal la información y el \textit{clock}.
 
-Una secuencia de una trama \textit{master} seguida de una trama \textit{slave} conforman un \textit{telegrama}.
+La transmisión de una trama se compone de un delimitador inicial (SD) de 9 bits de duración, los datos de la trama, una secuencia de verificación (CS) de 8 bits y un delimitador final (ED) de 2 bits de duración.
+En los datos de la trama y la secuencia de verificación, un ``1'' se transmite como una transición negativa en el medio de una celda de bit, y un ``0'' se transmite como una transición positiva.
+Los delimitadores de inicio para las tramas \textit{master} y \textit{slave} son diferentes, y se denominan MSD y SSD.
+En la figura~\ref{fig:manchester} se muestra a modo de ejemplo la transmisión de una trama \textit{master} en el medio EMD.
+
+\begin{figure}[htbp]
+	\centering
+    {
+        \fontfamily{phv}
+        \fontsize{9pt}{9pt}\selectfont
+        \input{./Figures/manchester.pdf_tex}
+    }
+	\caption[Transmisión de una trama master]{Transmisión de una trama \textit{master}.}
+    \label{fig:manchester}
+\end{figure}
+
+
+\subsection{Telegramas}
+
+Una secuencia de una trama \textit{master} seguida de una trama \textit{slave} conforman un \textit{telegrama}, como se muestra en la figura~\ref{fig:telegrama}.
 
 \begin{figure}[htbp]
 	\centering
 	\includegraphics[width=1\textwidth]{./Figures/telegrama.png}
 	\caption[Un telegrama MVB]{Un telegrama MVB.
         \\ \todo{CAMBIAR: La imagen original tiene copyright.}}
+    \label{fig:telegrama}
 \end{figure}
 
 Las tramas \textit{master} tienen una longitud fija de 16 bits (sin contar los delimitadores), e incluyen:
@@ -113,7 +132,7 @@ Las tramas \textit{master} tienen una longitud fija de 16 bits (sin contar los d
 
 Todos los dispositivos conectados al bus decodifican la trama \textit{master}. El dispositivo encuestado luego responde con su trama \textit{slave}, que a su vez puede ser recibida por otros dispositivos.
 
-Son de particular interés las tramas con \texttt{F\_code} entre 0 y 4. Este tipo de telegramas son denominados \texttt{Process\_Data}, y en este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
+Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4. Este tipo de telegramas son denominados \texttt{Process\_Data}, y en este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
 
 \section{TCN en las formaciones de Trenes Argentinos}
 
@@ -127,7 +146,7 @@ En la figura~\ref{fig:tms} se muestra un diagrama de la topología de la red TCN
     \label{fig:tms}
 \end{figure}
 
-En la figura~\ref{fig:rcme} se muestra una fotografía del interior de un \textit{rack}, en la cabina del conductor de una formación de la línea Mitre. En la imagen se observa uno de los módulos conectados en el bus MVB, el módulo de comunicación RCMe, que controla las puertas (DOORR, DOORL), el sistema de aire acondicionado (HVAC) y el sistema de información al pasajero (PIDS). En el panel frontal del módulo RCMe, los conectores DB9 X1 y X2 corresponden al bus MVB.
+En la figura~\ref{fig:rcme} se muestra una fotografía del interior de un \textit{rack}, en la cabina del conductor de una formación de la línea Mitre. En la imagen se observa uno de los módulos conectados en el bus MVB, el módulo de comunicación RCMe, que controla las puertas (DOORR, DOORL), el sistema de aire acondicionado (HVAC) y el sistema de información al pasajero (PIDS). En el panel frontal del módulo RCMe, los conectores DE-9 X1 y X2 corresponden al bus MVB.
 
 \begin{figure}[htbp]
 	\centering

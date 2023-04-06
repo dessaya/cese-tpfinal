@@ -54,21 +54,21 @@
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{tcn-mvb-wtb.pdf}}%
-    \put(0.48642863,0.22093393){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}WTB\end{tabular}}}}%
-    \put(0.3872601,0.14216921){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Gateway\end{tabular}}}}%
+    \put(0.48642863,0.22093393){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}\textbf{WTB}\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{tcn-mvb-wtb.pdf}}%
     \put(0.37237478,0.0052224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}dispositivos\end{tabular}}}}%
     \put(0.45357082,0.08979608){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}MVB\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{tcn-mvb-wtb.pdf}}%
-    \put(0.71334178,0.14216921){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Gateway\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{tcn-mvb-wtb.pdf}}%
     \put(0.69845656,0.0052224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}dispositivos\end{tabular}}}}%
     \put(0.77965257,0.08979608){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}MVB\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{tcn-mvb-wtb.pdf}}%
+    \put(0.06639927,0.14216921){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}gateway\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{tcn-mvb-wtb.pdf}}%
-    \put(0.06360039,0.14216921){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Gateway\end{tabular}}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{tcn-mvb-wtb.pdf}}%
     \put(0.04871505,0.0052224){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}dispositivos\end{tabular}}}}%
     \put(0.12991118,0.08979608){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}MVB\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{tcn-mvb-wtb.pdf}}%
+    \put(0.3909838,0.14216921){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}gateway\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=7]{tcn-mvb-wtb.pdf}}%
+    \put(0.71968389,0.14216921){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}gateway\end{tabular}}}}%
   \end{picture}%
 \endgroup%

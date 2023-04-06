@@ -1,0 +1,83 @@
+%% Creator: Inkscape 1.2.2 (b0a8486541, 2022-12-01), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'db9-emd.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{275.14157994bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.01867532)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{db9-emd.pdf}}%
+    \put(0.48848709,0.82976708){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1 A1.Data\_P\end{tabular}}}}%
+    \put(0.48848709,0.76841435){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2 A1.Data\_N\end{tabular}}}}%
+    \put(0.48848709,0.67844104){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}3\end{tabular}}}}%
+    \put(0.48848709,0.59220069){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4 B1.Data\_P\end{tabular}}}}%
+    \put(0.48848709,0.52539637){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}5 B1.Data\_N\end{tabular}}}}%
+    \put(0.34237651,0.77566081){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}6\end{tabular}}}}%
+    \put(0.34237651,0.71233454){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}7\end{tabular}}}}%
+    \put(0.34237651,0.64484992){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}8\end{tabular}}}}%
+    \put(0.34237651,0.5828128){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}9\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{db9-emd.pdf}}%
+    \put(0.13294376,0.77292947){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}línea A\end{tabular}}}}%
+    \put(0.18218434,0.18964404){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}línea B\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{db9-emd.pdf}}%
+    \put(0.48848709,0.43905368){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}1 A2.Data\_P\end{tabular}}}}%
+    \put(0.48848709,0.37770111){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2 A2.Data\_N\end{tabular}}}}%
+    \put(0.48848709,0.2877278){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}3\end{tabular}}}}%
+    \put(0.48848709,0.20148745){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}4 B2.Data\_P\end{tabular}}}}%
+    \put(0.48848709,0.13468313){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}5 B2.Data\_N\end{tabular}}}}%
+    \put(0.34237651,0.38494757){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}6\end{tabular}}}}%
+    \put(0.34237651,0.32162122){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}7\end{tabular}}}}%
+    \put(0.34237651,0.25413668){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}8\end{tabular}}}}%
+    \put(0.34237651,0.19209956){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}9\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{db9-emd.pdf}}%
+    \put(0.89674339,0.99658444){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}cable\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{db9-emd.pdf}}%
+  \end{picture}%
+\endgroup%
