@@ -175,3 +175,53 @@ La pantalla HMI (Human Machine Interface), también ubicada en la cabina del con
 
 
 \section{Componentes del sistema}
+
+A continuación se describen las principales tecnologías utilizadas para el desarrollo del dispositivo de captura.
+
+\subsection{EDU-CIAA}
+
+La EDU-CIAA \cite{web:ciaa} es una plataforma de desarrollo de hardware libre basada en el microcontrolador NXP LPC4337 \cite{web:lpc4337} (dual core ARM Cortex-M4F y Cortex-M0), diseñada para la enseñanza de la programación y el desarrollo de sistemas embebidos en Argentina y otros países de habla hispana.
+Esta placa cuenta con múltiples interfaces de entrada/salida, como puertos USB, Ethernet, CAN, UART, I²C, SPI, ADC y DAC.
+
+La EDU-CIAA se utilizó para desarrollar el dispositivo generador de señal que permite probar el funcionamiento del dispositivo de captura. El diseño del generador se describe en la sección \ref{sec:generador}.
+
+\subsection{Raspberry Pi}
+
+La Raspberry Pi \cite{web:rpi} es una computadora de placa única (SBC, por sus siglas en inglés) de bajo costo y tamaño reducido, diseñada por la Raspberry Pi Foundation para promover la enseñanza de la informática básica en las escuelas y países en desarrollo.
+Entre sus capacidades se encuentran el procesamiento de video en alta definición, conectividad inalámbrica y soporte para una gran cantidad de periféricos, lo que la convierte en una opción popular para una amplia gama de proyectos, desde la automatización del hogar hasta la robótica y la creación de servidores web.
+
+El dispositivo de captura desarrollado en este trabajo está basado en la Raspberry Pi. Su diseño se describe en la sección \ref{sec:hardware}
+
+\subsection{Modulo analizador lógico}
+
+El Saleae Logic 8 \cite{web:saleae} es un dispositivo de captura y análisis de señales digitales de alta velocidad y bajo costo. Se conecta a una computadora a través de USB y permite visualizar, medir y analizar señales digitales en tiempo real.
+El dispositivo cuenta con 8 canales de entrada, cada uno de los cuales puede capturar señales de hasta 25 MHz.
+Además, incluye un software intuitivo y fácil de usar que permite realizar decodificación de protocolos y análisis avanzado de señales.
+
+En este trabajo se utilizó el Saleae Logic 8 en la fase de investigación, para realizar capturas del tráfico del bus MVB para su posterior análisis, como se menciona en la sección \ref{sec:capturas}.
+
+El dispositivo de captura desarrollado también utiliza el Saleae Logic 8 para capturar el tráfico del bus en tiempo real, como se describe en la sección \ref{sec:hardware}.
+
+%Para capturar el tráfico del bus MVB, en este trabajo se utilizó un dispositivo clon del Saleae Logic 8 \cite{web:saleae}, como el que se muestra en la figura~\ref{fig:saleae}. Este dispositivo e
+
+%\begin{figure}[htbp]
+%	\centering
+%	\includegraphics[width=0.6\textwidth]{./Figures/clon-saleae.jpg}
+%	\caption{El dispositivo clon del Saleae Logic 8}
+%    \label{fig:saleae}
+%\end{figure}
+
+\subsection{Python}
+
+Python \cite{web:python} es un lenguaje de programación interpretado, de alto nivel y de propósito general. Está diseñado para ser fácil de aprender y cuenta con una sintaxis clara y legible.
+Además tiene una amplia variedad de librerías y frameworks disponibles que permiten desarrollar aplicaciones en diferentes áreas, como ciencia de datos, inteligencia artificial, automatización y desarrollo web.
+
+En este trabajo se utilizó el lenguaje Python en la fase de investigación, para decodificar las primeras capturas realizadas en la formación, como se describe en la sección \ref{sec:capturas}.
+
+\subsection{Go}
+
+Go \cite{web:go} es un lenguaje de programación de código abierto desarrollado por Google.
+Se trata de un lenguaje de alto nivel, compilado, con tipos estáticos y recolector de basura.
+Es sintácticamente similar al lenguaje C, pero se caracteriza por su enfoque en la concurrencia, la eficiencia y la simplicidad en la escritura de código.
+
+Se utilizó el lenguaje Go para escribir el software del dispositivo de captura que corre en la Raspberry Pi, como se describe en la sección \ref{sec:software}.
