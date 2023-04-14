@@ -16,7 +16,7 @@ La empresa Trenes Argentinos \cite{web:sofse} adquirió en 2013 un total de 705 
 \end{figure}
 \footnotetext{Fotografía por Casa Rosada (Argentina Presidencia de la Nación), CC BY-SA 2.0, \url{https://commons.wikimedia.org/w/index.php?curid=39117175}}
 
-Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los dispositivos comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (Train Communication Network, IEC 61375-1 \cite{iec61375-1}). La red TCN es una combinación jerárquica de dos buses de datos: WTB (Wire Train Bus) para interconectar los diferentes vehículos en una formación, y MVB (Multifunction Vehicle Bus) para interconectar los dispositivos dentro de cada vehículo.
+Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los dispositivos comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (\textit{Train Communication Network}, IEC 61375-1 \cite{iec61375-1}). La red TCN es una combinación jerárquica de dos buses de datos: WTB (\textit{Wire Train Bus}) para interconectar los diferentes vehículos en una formación, y MVB (\textit{Multifunction Vehicle Bus}) para interconectar los dispositivos dentro de cada vehículo.
 
 Actualmente Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de que puedan capturar la información disponible, o agregar dispositivos de desarrollo propio.
 Las EMU ofrecen una visualización del estado de algunos dispositivos en la cabina del conductor, pero no todos los valores están representados.
@@ -87,7 +87,8 @@ El sistema de diagnóstico MVB de la empresa Duagon \cite{duagon} (figura~\ref{f
 
 \pagebreak
 
-\section{Propuesta inicial}
+\section{Alcance y objetivos}
+\subsection{Propuesta inicial}
 
 Si bien los productos listados en la sección \ref{estadodelarte} podrían ser de utilidad para Trenes Argentinos, no resolverían los problemas principales, que son la falta de \emph{know-how} y la dependencia de tecnología cerrada. Por esta razón, el GICSAFe forma varios grupos de trabajo para generar tecnología y conocimiento propio sobre la red TCN. Como parte de esta iniciativa se presenta el Proyecto de Desarrollo Estratégico UBA-PDE Nº 15/2020 \cite{pde2020}, titulado ``Sistema de monitoreo y gestión de la red TCN en formaciones ferroviarias''.
 
@@ -105,7 +106,7 @@ Entre las razones se destacan la escasa información disponible acerca del chip 
 Por otro lado, el resultado que podría obtenerse no resulta tan relevante para Trenes Argentinos frente al desafío que esto representa.
 Como resultado, se decidió desarrollar un prototipo más simple utilizando un microcontrolador en lugar del chip MVBC02C.
 
-\section{Alcance y objetivos}
+\subsection{Requerimientos actualizados}
 
 En este trabajo se propone realizar un dispositivo que permita monitorear el tráfico de la red TCN, en particular del bus MVB. Los requerimientos principales son:
 

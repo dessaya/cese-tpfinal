@@ -4,7 +4,7 @@ En este capítulo se presenta un resumen de los conceptos más relevantes acerca
 
 \section{La red TCN}
 
-La red TCN es una combinación jerárquica de dos buses de datos en los que se transmite información dentro de una formación ferroviaria. El Multifunction Vehicle Bus (MVB) interconecta los diferentes dispositivos presentes dentro de cada vehículo, y el Wire Train Bus (WTB) interconecta los diferentes vehículos. Los componentes de la red TCN están estandarizados en la norma IEC 61375-1. En la figura~\ref{fig:tcn-mvb-wtb} se muestra un diagrama simplificado de la arquitectura TCN.
+La red TCN es una combinación jerárquica de dos buses de datos en los que se transmite información dentro de una formación ferroviaria. El \textit{Multifunction Vehicle Bus} (MVB) interconecta los diferentes dispositivos presentes dentro de cada vehículo, y el \textit{Wire Train Bus} (WTB) interconecta los diferentes vehículos. Los componentes de la red TCN están estandarizados en la norma IEC 61375-1. En la figura~\ref{fig:tcn-mvb-wtb} se muestra un diagrama simplificado de la arquitectura TCN.
 
 \begin{figure}[htbp]
 	\centering
@@ -13,7 +13,7 @@ La red TCN es una combinación jerárquica de dos buses de datos en los que se t
         \fontsize{9pt}{9pt}\selectfont
         \input{./Figures/tcn-mvb-wtb.pdf_tex}
     }
-	\caption[Wire Train Bus y Multifunction Vehicle Bus]{Wire Train Bus y Multifunction Vehicle Bus.\footnotemark}
+	\caption[\textit{Wire Train Bus} y \textit{Multifunction Vehicle Bus}]{\textit{Wire Train Bus} y \textit{Multifunction Vehicle Bus}.\footnotemark}
     \label{fig:tcn-mvb-wtb}
 \end{figure}
 \footnotetext{Dibujo del tren por Freepik\\(\url{https://www.freepik.com/free-vector/collection-different-types-trains_1114167.htm})}
@@ -26,16 +26,16 @@ El bus MVB interconecta diferentes dispositivos ubicados en el mismo vehículo o
 
 La estructura de MVB sigue el modelo OSI \cite{ISO7498-1}, que establece siete capas de abstracción en el proceso de transmisión de datos.
 En las capas inferiores del protocolo MVB se establecen las características del medio físico y la estructura de las tramas y telegramas.
-A continuación se describen estos conceptos, que son los más relevantes para el desarrollo de este trabajo.
+A continuación, se describen estos conceptos, que son los más relevantes para el desarrollo de este trabajo.
 
 \subsection{Capa física}
 
 El bus MVB ofrece tres opciones de medios físicos para la capa inferior:
 
 \begin{itemize}
-\item El medio Electrical Short Distance (ESD), para distancias de hasta 20~m, que soporta hasta 32 dispositivos por segmento, con transceptores de tipo RS-485.
-\item El medio Electrical Middle Distance (EMD), para distancias de hasta 200~m, que soporta hasta  32 dispositivos por segmento, con transformadores y transceptores compatibles con la norma IEC 61158-2 \cite{iec61158_2}.
-\item El medio Optical Glass Fibre (OGF), para distancias de hasta 2000~m, y soporta conexiones punto a punto o subredes de topología tipo estrella.
+\item El medio \textit{Electrical Short Distance} (ESD), para distancias de hasta 20~m, que soporta hasta 32 dispositivos por segmento, con transceptores de tipo RS-485.
+\item El medio \textit{Electrical Middle Distance} (EMD), para distancias de hasta 200~m, que soporta hasta  32 dispositivos por segmento, con transformadores y transceptores compatibles con la norma IEC 61158-2 \cite{iec61158_2}.
+\item El medio \textit{Optical Glass Fibre} (OGF), para distancias de hasta 2000~m, y soporta conexiones punto a punto o subredes de topología tipo estrella.
 \end{itemize}
 
 Puede haber diferentes buses en un vehículo, interconectados mediante un \textit{gateway} al bus WTB.
@@ -83,7 +83,7 @@ La transmisión de la señal digital se realiza mediante la tensión diferencial
 
 \subsection{Tramas}
 
-Se denomina \textit{trama} a un paquete de datos transmitido por un dispositivo.
+Se denomina ``trama'' a un paquete de datos transmitido por un dispositivo.
 En el bus MVB se transmiten dos tipos de tramas:
 
 \begin{itemize}
@@ -113,7 +113,7 @@ En la figura~\ref{fig:manchester} se muestra a modo de ejemplo la transmisión d
 
 \subsection{Telegramas}
 
-Una secuencia de una trama \textit{master} seguida de una trama \textit{slave} conforman un \textit{telegrama}, como se muestra en la figura~\ref{fig:telegrama}.
+Una secuencia de una trama \textit{master} seguida de una trama \textit{slave} conforman un telegrama, como se muestra en la figura~\ref{fig:telegrama}.
 
 \begin{figure}[htbp]
 	\centering
@@ -137,7 +137,7 @@ Todos los dispositivos conectados al bus decodifican la trama \textit{master}. E
 
 \subsection{Variables}
 
-Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4, que se denominan \texttt{Process\_Data}. En este caso el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
+Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4, que se denominan \texttt{Process\_Data}. En este caso, el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
 
 \section{Red TCN en las formaciones de Trenes Argentinos}
 
@@ -163,7 +163,7 @@ En la figura~\ref{fig:rcme} se muestra una fotografía de uno de los dispositivo
     \label{fig:rcme}
 \end{figure}
 
-La pantalla HMI (Human Machine Interface), también ubicada en la cabina del conductor, tiene un modo de operación que permite visualizar el valor de algunas variables que son transmitidas periódicamente en forma de \texttt{Process\_Data}. En la figura~\ref{fig:hmi} se puede observar que en el puerto 0 hay una variable de 16 bits cuyo valor binario actual es 1100 0001 0110 0101, o 33702 si se interpreta como un número decimal.
+La pantalla HMI (\textit{Human Machine Interface}), también ubicada en la cabina del conductor, tiene un modo de operación que permite visualizar el valor de algunas variables que son transmitidas periódicamente en forma de \texttt{Process\_Data}. En la figura~\ref{fig:hmi} se puede observar que en el puerto 0 hay una variable de 16 bits cuyo valor binario actual es 1100 0001 0110 0101, o 33702 si se interpreta como un número decimal.
 
 \begin{figure}[htbp]
 	\centering
@@ -176,7 +176,7 @@ La pantalla HMI (Human Machine Interface), también ubicada en la cabina del con
 
 \section{Componentes del sistema}
 
-A continuación se describen las principales tecnologías utilizadas para el desarrollo del dispositivo de captura.
+A continuación, se describen las principales tecnologías utilizadas para el desarrollo del dispositivo de captura.
 
 \subsection{EDU-CIAA}
 
