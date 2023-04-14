@@ -16,12 +16,12 @@ La empresa Trenes Argentinos \cite{web:sofse} adquirió en 2013 un total de 705 
 \end{figure}
 \footnotetext{Fotografía por Casa Rosada (Argentina Presidencia de la Nación), CC BY-SA 2.0, \url{https://commons.wikimedia.org/w/index.php?curid=39117175}}
 
-Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los componentes comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (Train Communication Network, IEC 61375-1 \cite{iec61375-1}). La red TCN es una combinación jerárquica de dos buses de datos: WTB (Wire Train Bus) para interconectar los diferentes vehículos en una formación, y MVB (Multifunction Vehicle Bus) para interconectar los dispositivos dentro de cada vehículo.
+Los distintos subsistemas electrónicos presentes en una EMU (control de frenos, control de tracción, control de puertas, paneles de información al pasajero, etc.) están interconectados formando una red de datos. Mediante esta red, los dispositivos comparten datos de diagnóstico y reciben órdenes de control a distancia. La red interna que se utiliza en las EMU es una implementación del estándar TCN (Train Communication Network, IEC 61375-1 \cite{iec61375-1}). La red TCN es una combinación jerárquica de dos buses de datos: WTB (Wire Train Bus) para interconectar los diferentes vehículos en una formación, y MVB (Multifunction Vehicle Bus) para interconectar los dispositivos dentro de cada vehículo.
 
 Actualmente Trenes Argentinos carece del conocimiento y las herramientas necesarias para interactuar con la red TCN en las EMU, de forma tal de que puedan capturar la información disponible, o agregar dispositivos de desarrollo propio.
-Las EMU ofrecen una visualización del estado de algunos componentes en la cabina del conductor, pero no todos los valores están representados.
+Las EMU ofrecen una visualización del estado de algunos dispositivos en la cabina del conductor, pero no todos los valores están representados.
 Tampoco se dispone de un sistema de monitoreo que permita observar dichos valores a distancia.
-Se cuenta con un sistema de almacenamiento histórico del estado de los componentes, pero se trata de un sistema propietario que registra solo un subconjunto de los datos disponibles, y por una duración limitada.
+Se cuenta con un sistema de almacenamiento histórico del estado de los dispositivos, pero se trata de un sistema propietario que registra solo un subconjunto de los datos disponibles, y por una duración limitada.
 
 Estas limitaciones adquieren relevancia en situaciones frecuentes.
 Por ejemplo, cuando una formación queda varada en un punto alejado de una estación, los técnicos se ven obligados a trasladarse personalmente para evaluar el problema, provocando demoras en el servicio.
