@@ -137,7 +137,10 @@ Todos los dispositivos conectados al bus decodifican la trama \textit{master}. E
 
 \subsection{Variables}
 
-Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4, que se denominan \texttt{Process\_Data}. En este caso, el campo de 12 bits contiene una dirección lógica que se interpreta como un \textit{puerto}. Cada puerto está asociado unívocamente a una \textit{variable}, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc. Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
+Son de particular interés los telegramas con \texttt{F\_code} entre 0 y 4, que se denominan \texttt{Process\_Data}.
+En este caso, el campo de 12 bits contiene una dirección lógica que hace referencia a un puerto.
+Cada puerto está asociado unívocamente a una variable, que puede contener uno o más valores como la velocidad actual, la tensión de red, el estado de las puertas, etc.
+Cada dispositivo \textit{slave} almacena uno o más puertos, y al ser encuestado responde con el valor actual de la variable correspondiente.
 
 \section{Red TCN en las formaciones de Trenes Argentinos}
 
