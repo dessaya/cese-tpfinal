@@ -71,14 +71,51 @@ En la figura~\ref{fig:sigrok} se muestra un ejemplo del flujo de datos producido
 	\centering
     {
         \fontfamily{phv}
-        \fontsize{8pt}{8pt}\selectfont
+        \fontsize{9pt}{9pt}\selectfont
         \input{./Figures/sigrok.pdf_tex}
     }
 	\caption{Flujo de datos producido por Sigrok.}
     \label{fig:sigrok}
 \end{figure}
 
-El software que corre en la Raspberry Pi está programado en lenguaje Go y su código fuente está disponible en la plataforma Github \cite{mvbparse-go}.
+Sería posible bajar la frecuencia de captura a 6 MHz, pero no menos ya que el protocolo MVB transmite la señal a 1,5 Mbit/s en codificación Manchester.
+Para lograr una captura suficientemente confiable se necesita que la frecuencia de muestreo sea de al menos 6 MHz.
+La frecuencia elegida de 12 MHz ofrece un buen balance entre confiabilidad y eficiencia en espacio.
+
+\pagebreak
+
+El flujo de datos producido por Sigrok se redirecciona mediante un \textit{pipe} de Unix a un software programado en lenguaje Go. Como se muestra en la figura~\ref{fig:capas-software}, la decodificación se realiza en tres capas de procesamiento:
+
+\begin{enumerate}
+\item La capa inferior (\texttt{MVBStream}) lee el flujo de datos byte por byte y ofrece funcionalidades tales como leer muestras individualmente, esperar hasta la siguiente transición de estado (alto-bajo o bajo-alto), esperar una cantidad de tiempo, etc.
+\item La capa intermedia (\texttt{MVBDecoder}) identifica las tramas MVB y por cada telegrama produce un evento (\texttt{Event}).
+\item La capa superior recibe los eventos y los procesa según el modo de operación del software. Se ofrecen dos modos de operación:
+    \begin{itemize}
+        \item En el modo interactivo, el software presenta una interfaz de usuario en la que se muestra el tráfico MVB en tiempo real. En la figura~\ref{fig:interactivo} se muestra una captura de pantalla del modo interactivo.
+        \item En el modo de almacenamiento, el software permite almacenar la evolución histórica de una o más variables de importancia.
+    \end{itemize}
+\end{enumerate}
+
+\begin{figure}[htbp]
+	\centering
+    {
+        \fontfamily{phv}
+        \fontsize{9pt}{9pt}\selectfont
+        \input{./Figures/capas-software.pdf_tex}
+    }
+	\caption{Capas de procesamiento del software de captura.}
+    \label{fig:capas-software}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=1\textwidth]{./Figures/modo-interactivo.png}
+	\caption{Modo interactivo del software de captura.}
+    \label{fig:interactivo}
+\end{figure}
+
+El código fuente de este programa está disponible en la plataforma Github \cite{mvbparse-go}.
+En el archivo \texttt{README.md} se muestran más detalles acerca de los diferentes modos de funcionamiento.
 
 \section{Dispositivo generador de señal}
 \label{sec:generador}
