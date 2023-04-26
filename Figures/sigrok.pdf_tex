@@ -50,28 +50,29 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.32417123)%
+  \begin{picture}(1,0.32053134)%
     \lineheight{1}%
     \setlength\tabcolsep{0pt}%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{sigrok.pdf}}%
-    \put(0.04484167,0.2230577){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}señal MVB\end{tabular}}}}%
-    \put(0.50211435,0.299795){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}666,7 ns\end{tabular}}}}%
+    \put(0.04484167,0.22305768){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}señal MVB\end{tabular}}}}%
+    \put(0.50211435,0.29979499){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}666,7 ns\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{sigrok.pdf}}%
-    \put(-0.00064119,0.03860771){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}flujo de datos\\(hexadecimal)\end{tabular}}}}%
+    \put(-0.00064119,0.03860769){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}flujo de datos\\(hexadecimal)\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=3]{sigrok.pdf}}%
-    \put(0.07947025,0.13203336){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Sigrok\end{tabular}}}}%
-    \put(0.24922036,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
-    \put(0.3222463,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
-    \put(0.39527201,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
-    \put(0.46829779,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
-    \put(0.54132373,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
-    \put(0.61362654,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
-    \put(0.68592921,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
-    \put(0.75823202,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
-    \put(0.83053484,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
-    \put(0.90283765,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
+    \put(0.07947025,0.13203334){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Sigrok\end{tabular}}}}%
+    \put(0.24922036,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
+    \put(0.3222463,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
+    \put(0.39527201,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
+    \put(0.46829779,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
+    \put(0.54132373,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
+    \put(0.61362654,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
+    \put(0.68592921,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
+    \put(0.75823202,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
+    \put(0.83053484,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}01\end{tabular}}}}%
+    \put(0.90283765,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}00\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=4]{sigrok.pdf}}%
-    \put(0.97637145,0.01541212){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}...\end{tabular}}}}%
+    \put(0.97637145,0.0154121){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}...\end{tabular}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=5]{sigrok.pdf}}%
+    \put(0.27592936,0.10099906){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}83,33 ns\end{tabular}}}}%
   \end{picture}%
 \endgroup%

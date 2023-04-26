@@ -55,17 +55,29 @@ En la figura~\ref{fig:fotodispositivo} se muestra una foto del dispositivo de ca
 \section{Arquitectura de software}
 \label{sec:software}
 
-Como se ve en la figura~\ref{fig:bloques}, a la Raspberry Pi entra la señal digital capturada por el analizador lógico en tiempo real, mediante la interfaz USB. Para recibir esta señal se utiliza Sigrok, invocándolo de la siguiente manera:
+Como se ve en la figura~\ref{fig:bloques}, la señal digital capturada por el VKTECH se envía a la Raspberry Pi en tiempo real mediante la interfaz USB. Para recibir esta señal en la Raspberry Pi se utiliza Sigrok, invocándolo de la siguiente manera:
 
 \begin{lstlisting}
 sigrok-cli -d fx2lafw --continuous --config samplerate=12m
            --channels D0 -O binary
 \end{lstlisting}
 
-Este comando recibe la señal del VKTECH en la interfaz USB, muestrea la señal digital con una frecuencia de 12 MHz y produce como salida un flujo de datos que se puede redireccionar a un archivo o a un \textit{pipe} de Unix.
-Por cada muestra capturada, se emite un byte en el que el bit menos significativo es 0 o 1 dependiendo de si la señal lógica capturada es baja o alta.
-De esta forma, el flujo de datos tiene un ancho de banda de 12 MB/s, aunque solo se usa uno de los 8 bits de cada byte.
-En la figura~\ref{fig:sigrok} se muestra un ejemplo del flujo de datos producido por Sigrok.
+Los parámetros utilizados son:
+
+\begin{itemize}
+        \item \texttt{-d fx2lafw}: Utilizar el \textit{driver} compatible con el dispositivo VKTECH.
+        \item \texttt{--continuous}: Muestrear en forma continua hasta ser detenido.
+        \item \texttt{--config samplerate=12m}: Muestrear con una frecuencia de 12 MHz.
+        \item \texttt{--channels D0}: Muestrear únicamente el canal 0 (correspondiente al pin \texttt{CH1} de la figura \ref{fig:esquematico}).
+        \item \texttt{-O binary}: Producir como salida un flujo de datos en formato binario.
+\end{itemize}
+
+Por cada muestra capturada, se emite un byte en el que cada bit corresponde a uno de los 8 canales del VKTECH.
+Como se captura únicamente el canal 0, el bit menos significativo será 0 o 1 dependiendo de si la señal lógica capturada es baja o alta.
+De esta forma, el flujo de datos tiene un ancho de banda de 12 MB/s, aunque se usa solo uno de los 8 bits de cada byte.
+Este flujo de datos se puede redireccionar a un archivo o a un \textit{pipe} de Unix.
+
+En la figura~\ref{fig:sigrok} se muestra un ejemplo del flujo de datos producido por Sigrok. El intervalo de 666,7 ns corresponde a un bit de datos de una trama MVB en codificación Manchester (ver figura~\ref{fig:manchester}). La frecuencia de muestreo de 12 MHz produce una muestra cada 83,33 ns.
 
 \begin{figure}[htbp]
 	\centering
@@ -78,11 +90,9 @@ En la figura~\ref{fig:sigrok} se muestra un ejemplo del flujo de datos producido
     \label{fig:sigrok}
 \end{figure}
 
-Sería posible bajar la frecuencia de captura a 6 MHz, pero no menos ya que el protocolo MVB transmite la señal a 1,5 Mbit/s en codificación Manchester.
-Para lograr una captura suficientemente confiable se necesita que la frecuencia de muestreo sea de al menos 6 MHz.
+Sería posible bajar la frecuencia de muestreo, pero dado que la señal MVB se transmite a 1,5 Mbit/s en codificación Manchester, para lograr una captura suficientemente confiable el límite inferior es 6 MHz.
+Sin embargo, la captura en una frecuencia cercana al límite inferior aumenta considerablemente la tasa de errores de captura.
 La frecuencia elegida de 12 MHz ofrece un buen balance entre confiabilidad y eficiencia en espacio.
-
-\pagebreak
 
 El flujo de datos producido por Sigrok se redirecciona mediante un \textit{pipe} de Unix a un software programado en lenguaje Go. Como se muestra en la figura~\ref{fig:capas-software}, la decodificación se realiza en tres capas de procesamiento:
 
