@@ -127,5 +127,66 @@ El flujo de datos producido por Sigrok se redirecciona mediante un \textit{pipe}
 El código fuente de este programa está disponible en la plataforma Github \cite{mvbparse-go}.
 En el archivo \texttt{README.md} se muestran más detalles acerca de los diferentes modos de funcionamiento.
 
-\section{Dispositivo generador de señal}
+\section{Generador de señal de prueba MVB}
 \label{sec:generador}
+
+Para probar el funcionamiento del software de captura sin necesidad de acudir a un taller de Trenes Argentinos y conectar el dispositivo en una formación ferroviaria, se decidió desarrollar un dispositivo auxiliar. Este dispositivo genera una señal con características similares a la señal transmitida en el bus MVB, emitiendo una secuencia de tramas en forma cíclica.
+
+En la figura~\ref{fig:generador} se muestra un diagrama de bloques con el generador de señal MVB conectado al VKTECH. La señal es generada por software en una EDU-CIAA, y se transmite mediante la interfaz SPI. La señal generada es similar a la señal producida por el MAX485 en la figura~\ref{fig:bloques}.
+
+\begin{figure}[htbp]
+	\centering
+    {
+        \fontfamily{phv}
+        \fontsize{8pt}{8pt}\selectfont
+        \input{./Figures/generador.pdf_tex}
+    }
+	\caption{Generador de señal MVB.}
+    \label{fig:generador}
+\end{figure}
+
+El firmware desarrollado para el generador de señal está disponible en la plataforma Github \cite{mvbgen}.
+
+Para simular el tráfico del bus, el firmware transmite un telegrama cada 750 microsegundos
+Los telegramas transmitidos son reproducciones de capturas realizadas en un bus MVB real (ver sección \ref{sec:capturas}). Por ejemplo, el primer telegrama transmitido está definido en \texttt{gen.c} como:
+
+\definecolor{light-gray}{gray}{0.95}
+\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=11,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+static const telegram_t mvb_data[] = {
+    { { 0x43, 0x90, 0xd6 }, (uint8_t[]){ 0x97, 0x1e, 0x00, 0x00, 0x00, 0x82, 0x14, 0x06, 0xdf, 0x1e, 0x0b, 0x31, 0x0f, 0x00, 0x17, 0x05, 0x8c, 0xf8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x4d, 0xc9, 0x11, 0x94, 0x11, 0xa8, 0x11, 0xa8, 0x04, 0x05, 0x88 }, 36 },
+\end{lstlisting}
+
+Los primeros 3 bytes corresponden a la trama \textit{master} (16 bits de datos más la secuencia de verificación) y a continuación se especifica el contenido de la trama \textit{slave}, de 36 bytes de longitud.
+
+Para enviar un telegrama, se envía la trama \textit{master}, luego se transmiten 15 bits en alto (esto simula una pequeña pausa entre las tramas), y luego se transmite la trama \textit{slave}:
+
+\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=193,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+    send_master(mvb_data[i].master);
+    send_idle(15, 1);
+    send_slave(mvb_data[i].slave, mvb_data[i].slave_len);
+\end{lstlisting}
+
+Para transmitir la trama \textit{master}, se envía el delimitador inicial, seguido de los 3 bytes de la trama y el delimitador final. La transmisión de la trama \textit{slave} es similar.
+
+\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=173,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+static void send_master(const uint8_t bytes[]) {
+    send_start_bit();
+    send_master_start_delimiter();
+    send_bytes(bytes, 3);
+    send_end_delimiter();
+}
+\end{lstlisting}
+
+Estas funciones cargan la información a transmitir en un \textit{buffer}. Cada bit de información se codifica en Manchester: un bit ``1'' corresponde a una transición negativa y se traduce en dos bits 1-0, y un bit ``0'' corresponde a una transición positiva y se traduce en dos bits 0-1. De esta manera, cada bit de información que se carga ocupa 2 bits en el \textit{buffer}.
+
+En el archivo \texttt{main.c} se encuentra el ciclo principal, en el que se hace una pausa de 750 microsegundos, luego se prepara el siguiente telegrama a transmitir en el \textit{buffer}, y luego se transmite el contenido del \textit{buffer} mediante la interfaz SPI:
+
+\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=31,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+    while (1) {
+        delayInaccurateUs(750);
+        sendbuf_t *buf = next_telegram();
+        spiWrite(SPI0, buf->data, buf->bytes);
+    }
+\end{lstlisting}
+
+La interfaz SPI se configura para transmitir con una frecuencia de 3 Mbit/s, de forma tal que cada par de bits transmitidos corresponden a un bit de información codificada en Manchester. De esta manera se logra una tasa de 1.5 Mbit/s compatible con el protocolo MVB.
