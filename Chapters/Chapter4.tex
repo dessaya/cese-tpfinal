@@ -72,7 +72,7 @@ Estas visualizaciones se obtuvieron utilizando el software PulseView, que es par
 
 El siguiente objetivo en la etapa de investigación fue decodificar la información de las tramas capturadas. Para ello se desarrolló un programa en lenguaje Python que toma como entrada una captura en formato binario (un byte por muestra, como se describe en la sección \ref{sec:software}) y produce como salida un reporte de la información decodificada.
 
-El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,<master>,<slave>}. Por ejemplo, si \texttt{captura1.bin} contiene 4 telegramas:
+El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario, decodifica los datos codificados en Manchester, y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,\allowbreak <master>,\allowbreak <slave>}. Por ejemplo, si \texttt{captura1.bin} contiene 4 telegramas:
 
 \begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
 $ python3 mvb_signal.py < captura1.bin
@@ -82,7 +82,7 @@ $ python3 mvb_signal.py < captura1.bin
 0.0022,4010c5,04004830580048
 \end{lstlisting}
 
-El segundo programa, \texttt{mvbparse.py} toma como entrada la salida de \texttt{mvb\_signal.py} y produce un reporte de la evolución de cada una de las variables identificadas. Por ejemplo:
+La salida de \texttt{mvb\_signal.py} se puede pasar mediante un \textit{pipe} al segundo programa, \texttt{mvbparse.py}, que interpreta la información de las tramas según el protocolo MVB y produce un reporte de la evolución de cada una de las variables identificadas. Por ejemplo:
 
 \begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
 $ python3 mvb_signal.py < captura2.bin | python3 mvbparse.py
