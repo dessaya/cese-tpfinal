@@ -40,6 +40,33 @@ En las figuras~\ref{fig:foto-banco-capturas} y \ref{fig:osciloscopio} se muestra
     \label{fig:osciloscopio}
 \end{figure}
 
+Mediante la PC conectada con el analizador lógico se tomaron capturas de un minuto de duración del tráfico del bus MVB, con el banco de medición conectado en diferentes puntos del segmento.
+En simultáneo con las capturas se efectuó el procedimiento de encendido de la red y una secuencia de pasos tales como tomar cabina, abrir y cerrar puertas, cambio de marcha, etc., de forma tal de generar tráfico en la red y así poder analizar en detalle el funcionamiento de la misma.
+
+En la figura~\ref{fig:pulseview} se muestra una visualización de una de las capturas.
+En la figura~\ref{fig:pulseview-10ms} se observa que en los primeros 10ms se transmitieron 10 telegramas, aunque en el nivel de detalle no es suficiente para discernir su formato.
+En la figura~\ref{fig:pulseview-telegrama} se amplía la visualización de uno de los telegramas, donde se puede apreciar en detalle las tramas \textit{master} y \textit{slave}.
+Estas visualizaciones se obtuvieron utilizando el software PulseView, que es parte del proyecto Sigrok.
+
+\begin{figure}[htbp!]
+	\centering
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=0.95\textwidth]{./Figures/pulseview-10ms.png}
+        \caption{Algunos telegramas transmitidos en el transcurso de 10 ms.}
+        \label{fig:pulseview-10ms}
+    \end{subfigure}
+    \par\bigskip
+    \begin{subfigure}[b]{0.95\textwidth}
+        \centering
+        \includegraphics[width=1\textwidth]{./Figures/pulseview-telegrama.png}
+        \caption{Ampliación de un telegrama.}
+        \label{fig:pulseview-telegrama}
+    \end{subfigure}
+    \caption{Visualización de una de las capturas realizadas.}
+    \label{fig:pulseview}
+\end{figure}
+
 \section{Decodificación de las capturas}
 \label{sec:decodificacion}
 
