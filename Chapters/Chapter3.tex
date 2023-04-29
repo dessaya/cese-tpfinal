@@ -57,9 +57,9 @@ En la figura~\ref{fig:fotodispositivo} se muestra una foto del dispositivo de ca
 
 Como se ve en la figura~\ref{fig:bloques}, la señal digital capturada por el VKTECH se envía a la Raspberry Pi en tiempo real mediante la interfaz USB. Para recibir esta señal en la Raspberry Pi se utiliza Sigrok, invocándolo de la siguiente manera:
 
-\begin{lstlisting}
-sigrok-cli -d fx2lafw --continuous --config samplerate=12m
-           --channels D0 -O binary
+\begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
+$ sigrok-cli -d fx2lafw --continuous --config samplerate=12m
+             --channels D0 -O binary
 \end{lstlisting}
 
 Los parámetros utilizados son:
@@ -150,7 +150,6 @@ El firmware desarrollado para el generador de señal está disponible en la plat
 Para simular el tráfico del bus, el firmware transmite un telegrama cada 750 microsegundos
 Los telegramas transmitidos son reproducciones de capturas realizadas en un bus MVB real (ver sección \ref{sec:capturas}). Por ejemplo, el primer telegrama transmitido está definido en \texttt{gen.c} como:
 
-\definecolor{light-gray}{gray}{0.95}
 \begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=11,backgroundcolor=\color{light-gray},xleftmargin=1cm]
 static const telegram_t mvb_data[] = {
     { { 0x43, 0x90, 0xd6 }, (uint8_t[]){ 0x97, 0x1e, 0x00, 0x00, 0x00, 0x82, 0x14, 0x06, 0xdf, 0x1e, 0x0b, 0x31, 0x0f, 0x00, 0x17, 0x05, 0x8c, 0xf8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x4d, 0xc9, 0x11, 0x94, 0x11, 0xa8, 0x11, 0xa8, 0x04, 0x05, 0x88 }, 36 },

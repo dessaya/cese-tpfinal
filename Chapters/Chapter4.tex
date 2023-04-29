@@ -107,9 +107,30 @@ Dado que durante la captura se realizaron diferentes acciones según se mencion�
     \label{fig:analisis-captura}
 \end{figure}
 
-
-
 El software de decodificación está disponible en la plataforma Github \cite{mvbparse-py}. El desarrollo de este prototipo no solo sirvió para proporcionar información valiosa acerca del funcionamiento del bus MVB en las formaciones de Trenes Argentinos, sino también brindó la experiencia necesaria para el posterior desarrollo del software de captura descripto en la sección \ref{sec:software}.
 
+\section{Pruebas del software de captura}
+
+Para probar el correcto funcionamiento del software de captura (descripto en la sección \ref{sec:software}) se utilizaron las capturas tomadas en la formación ferroviaria (ver sección \ref{sec:capturas}).
+Para ejecutar esta prueba se toma como entrada del software el contenido de una de las capturas en lugar del flujo de datos en tiempo real.
+
+En una consola se crea un \textit{fifo} y se lo alimenta con el contenido de la captura en un ciclo infinito. Se utiliza el comando \texttt{pv} \cite{pv} para limitar el ancho de banda a 12 MB/s:
+
+\begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
+$ mkfifo /tmp/fifo
+$ while cat captura.bin ; ; end | pv -L 12M > /tmp/fifo
+\end{lstlisting}
+
+En otra consola se ejecuta el software de captura tomando el \textit{fifo} como entrada.
+
+\begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
+$ go run cmd/main.go </tmp/fifo
+\end{lstlisting}
+
+Esta técnica permite utilizar el software como si estuviera conectado al bus MVB. De esta manera se pudo probar todas sus funcionalidades, tanto en el modo interactivo como en el modo de captura.
+
 \section{Pruebas con el generador de señal}
-\section{Captura en tiempo real}
+
+Otra técnica de prueba consistió en utilizar el dispositivo generador de señal descripto en la sección \ref{sec:generador}. Esta es una prueba de integración.
+
+\section{Pruebas del dispositivo de captura}
