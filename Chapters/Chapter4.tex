@@ -44,7 +44,7 @@ Mediante la PC conectada con el analizador lógico se tomaron capturas de un min
 En simultáneo con las capturas se efectuó el procedimiento de encendido de la red y una secuencia de pasos tales como tomar cabina, abrir y cerrar puertas, cambio de marcha, etc., de forma tal de generar tráfico en la red y así poder analizar en detalle el funcionamiento de la misma.
 
 En la figura~\ref{fig:pulseview} se muestra una visualización de una de las capturas.
-En la figura~\ref{fig:pulseview-10ms} se observa que en los primeros 10ms se transmitieron 10 telegramas, aunque en el nivel de detalle no es suficiente para discernir su formato.
+En la figura~\ref{fig:pulseview-10ms} se observa que en los primeros 10 ms se transmitieron 10 telegramas, aunque en el nivel de detalle no es suficiente para discernir su formato.
 En la figura~\ref{fig:pulseview-telegrama} se amplía la visualización de uno de los telegramas, donde se puede apreciar en detalle las tramas \textit{master} y \textit{slave}.
 Estas visualizaciones se obtuvieron utilizando el software PulseView, que es parte del proyecto Sigrok.
 
@@ -69,6 +69,47 @@ Estas visualizaciones se obtuvieron utilizando el software PulseView, que es par
 
 \section{Decodificación de las capturas}
 \label{sec:decodificacion}
+
+El siguiente objetivo en la etapa de investigación fue decodificar la información de las tramas capturadas. Para ello se desarrolló un programa en lenguaje Python que toma como entrada una captura en formato binario (un byte por muestra, como se describe en la sección \ref{sec:software}) y produce como salida un reporte de la información decodificada.
+
+El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,<master>,<slave>}. Por ejemplo, si \texttt{captura1.bin} contiene 4 telegramas:
+
+\begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
+$ python3 mvb_signal.py < captura1.bin
+0.0001,4390d6,971e0000008214
+0.0011,431bf7,30000f
+0.0021,000134,971e07
+0.0022,4010c5,04004830580048
+\end{lstlisting}
+
+El segundo programa, \texttt{mvbparse.py} toma como entrada la salida de \texttt{mvb\_signal.py} y produce un reporte de la evolución de cada una de las variables identificadas. Por ejemplo:
+
+\begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
+$ python3 mvb_signal.py < captura2.bin | python3 mvbparse.py
+ [[port='0x31b'] [n=   12] [
+                  t=  0.001s  0x30000f0c0110000000000000000011a8
+ [[port='0x353'] [n=    3] [
+                  t=  0.212s  0xe2036aa0000000000
+                  t=  0.471s  0xe2036ba0000000000
+                  t=  0.730s  0xe2036da0000000000]],
+\end{lstlisting}
+
+La salida de ejemplo de \texttt{mvbparse.py} indica que se identificaron dos variables, en los puertos \texttt{0x31b} y \texttt{0x353}.
+La primera variable fue transmitida en total 12 veces, con un valor de 16 bytes. Se transmitió por primera vez en la marca temporal $0{,}001$ s, con un valor de 16 bytes, y luego se transmitió 11 veces más con el mismo valor.
+La variable en el puerto \texttt{0x353} fue transmitida en total 3 veces con un valor de 8 bytes diferente cada vez.
+
+Dado que durante la captura se realizaron diferentes acciones según se mencionó en la sección \ref{sec:capturas} (tomar cabina, abrir y cerrar puertas, etc.), fue posible, analizando la salida producida por el programa, detectar cuáles son las variables que cambian en función del momento en que estas acciones fueron efectuadas. En la figura~\ref{fig:analisis-captura} se muestra, por ejemplo, que la variable en el puerto \texttt{0x1b2} se modifica cada vez que se realizan las acciones de tomar cabina, y seleccionar, abrir y cerrar las puertas.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{./Figures/analisis-captura.png}
+	\caption[Resultado del análisis de una de las capturas.]{Resultado del análisis de una de las capturas.}
+    \label{fig:analisis-captura}
+\end{figure}
+
+
+
+El software de decodificación está disponible en la plataforma Github \cite{mvbparse-py}. El desarrollo de este prototipo no solo sirvió para proporcionar información valiosa acerca del funcionamiento del bus MVB en las formaciones de Trenes Argentinos, sino también brindó la experiencia necesaria para el posterior desarrollo del software de captura descripto en la sección \ref{sec:software}.
 
 \section{Pruebas con el generador de señal}
 \section{Captura en tiempo real}
