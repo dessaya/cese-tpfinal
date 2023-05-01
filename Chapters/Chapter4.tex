@@ -44,25 +44,13 @@ Mediante la PC conectada con el analizador lógico se tomaron capturas de un min
 En simultáneo con las capturas se efectuó el procedimiento de encendido de la red y una secuencia de pasos tales como tomar cabina, abrir y cerrar puertas, cambio de marcha, etc., de forma tal de generar tráfico en la red y así poder analizar en detalle el funcionamiento de la misma.
 
 En la figura~\ref{fig:pulseview} se muestra una visualización de una de las capturas.
-En la figura~\ref{fig:pulseview-10ms} se observa que en los primeros 10 ms se transmitieron 10 telegramas, aunque en el nivel de detalle no es suficiente para discernir su formato.
-En la figura~\ref{fig:pulseview-telegrama} se amplía la visualización de uno de los telegramas, donde se puede apreciar en detalle las tramas \textit{master} y \textit{slave}.
+En la parte superior se observa que en los primeros 10 ms se transmitieron 10 telegramas, aunque el nivel de detalle no es suficiente para discernir el formato de las tramas.
+En la parte inferior se amplía la visualización de uno de los telegramas, donde se puede apreciar en detalle las tramas \textit{master} y \textit{slave}.
 Estas visualizaciones se obtuvieron utilizando el software PulseView, que es parte del proyecto Sigrok.
 
 \begin{figure}[htbp!]
 	\centering
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{./Figures/pulseview-10ms.png}
-        \caption{Algunos telegramas transmitidos en el transcurso de 10 ms.}
-        \label{fig:pulseview-10ms}
-    \end{subfigure}
-    \par\bigskip
-    \begin{subfigure}[b]{\textwidth}
-        \centering
-        \includegraphics[width=1\textwidth]{./Figures/pulseview-telegrama.png}
-        \caption{Ampliación de un telegrama.}
-        \label{fig:pulseview-telegrama}
-    \end{subfigure}
+    \includegraphics[width=\textwidth]{./Figures/pulseview.png}
     \caption{Visualización de una de las capturas realizadas.}
     \label{fig:pulseview}
 \end{figure}
@@ -82,7 +70,7 @@ $ python3 mvb_signal.py < captura1.bin
 0.0022,4010c5,04004830580048
 \end{lstlisting}
 
-La salida de \texttt{mvb\_signal.py} se puede pasar mediante un \textit{pipe} al segundo programa, \texttt{mvbparse.py}, que interpreta la información de las tramas según el protocolo MVB y produce un reporte de la evolución de cada una de las variables identificadas. Por ejemplo:
+La salida de \texttt{mvb\_signal.py} se puede redireccionar mediante un \textit{pipe} al segundo programa, \texttt{mvbparse.py}, que interpreta la información de las tramas según el protocolo MVB y produce un reporte de la evolución de cada una de las variables identificadas. Por ejemplo:
 
 \begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
 $ python3 mvb_signal.py < captura2.bin | python3 mvbparse.py
@@ -109,12 +97,15 @@ Dado que durante la captura se realizaron diferentes acciones según se mencion�
 
 El software de decodificación está disponible en la plataforma Github \cite{mvbparse-py}. El desarrollo de este prototipo no solo sirvió para proporcionar información valiosa acerca del funcionamiento del bus MVB en las formaciones de Trenes Argentinos, sino también brindó la experiencia necesaria para el posterior desarrollo del software de captura descripto en la sección \ref{sec:software}.
 
-\section{Pruebas del software de captura}
+\section{Pruebas del dispositivo de captura}
+
+A continuación se describen los diferentes tipos de pruebas efectuadas para verificar el correcto funcionamiento del dispositivo de captura.
+
+\subsection{Prueba del software de captura}
 
 Para probar el correcto funcionamiento del software de captura (descripto en la sección \ref{sec:software}) se utilizaron las capturas tomadas en la formación ferroviaria (ver sección \ref{sec:capturas}).
-Para ejecutar esta prueba se toma como entrada del software el contenido de una de las capturas en lugar del flujo de datos en tiempo real.
 
-En una consola se crea un \textit{fifo} y se lo alimenta con el contenido de la captura en un ciclo infinito. Se utiliza el comando \texttt{pv} \cite{pv} para limitar el ancho de banda a 12 MB/s:
+Para ejecutar esta prueba se ejecuta el software pasándole como entrada el contenido de una de las capturas en lugar del flujo de datos en tiempo real. Para ello, en una consola se crea un \textit{fifo} y se lo alimenta con el contenido de la captura en un ciclo infinito. Se utiliza el comando \texttt{pv} \cite{pv} para limitar el ancho de banda a 12 MB/s:
 
 \begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
 $ mkfifo /tmp/fifo
@@ -127,10 +118,47 @@ En otra consola se ejecuta el software de captura tomando el \textit{fifo} como 
 $ go run cmd/main.go </tmp/fifo
 \end{lstlisting}
 
-Esta técnica permite utilizar el software como si estuviera conectado al bus MVB. De esta manera se pudo probar todas sus funcionalidades, tanto en el modo interactivo como en el modo de captura.
+Esta técnica permite utilizar el software en una PC, como si estuviera conectado al bus MVB.
+De esta manera se pudo probar todas sus funcionalidades, tanto en el modo interactivo como en el modo de captura.
 
-\section{Pruebas con el generador de señal}
+\subsection{Prueba de integración de hardware}
 
-Otra técnica de prueba consistió en utilizar el dispositivo generador de señal descripto en la sección \ref{sec:generador}. Esta es una prueba de integración.
+% 28 oct 2021?
+% 24 nov 2021?
 
-\section{Pruebas del dispositivo de captura}
+Para efectuar una prueba de integración del software de captura funcionando en una Raspberry Pi y recibiendo el flujo de datos del VKTECH, se utilizó el generador de señal MVB descripto en la sección \ref{sec:generador}, en una configuración como se muestra en la figura~\ref{fig:generador}.
+En la figura~\ref{fig:educiaa+vktech} se muestra el banco de medición utilizado en esta prueba.
+
+Esta prueba permitió verificar que la combinación del VKTECH con la Raspberry Pi funciona correctamente para recibir el flujo de datos, y que el software corriendo en la Raspberry Pi puede decodificar el tráfico MVB en tiempo real.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{./Figures/educiaa+vktech.jpg}
+	\caption{Banco de medición de la prueba utilizando el generador de señal MVB.}
+    \label{fig:educiaa+vktech}
+\end{figure}
+
+
+\subsection{Prueba en una formación ferroviaria}
+
+% 3 dic 2021 (PC)
+
+% 6 ene 2022? (RPI)
+
+La última prueba que se efectuó fue con el dispositivo de captura conectado en el bus MVB en una formación de Trenes Argentinos, como se muestra en la figura~\ref{fig:conexion}.
+Se verificó que la conexión del dispositivo de captura no afectó al correcto funcionamiento del resto de los dispositivos conectados en el bus MVB. Sin embargo, cabe destacar que esta prueba se realizó en una formación detenida.
+En la figura~\ref{fig:disp-captura} se muestra el dispositivo de captura, y en la figura~\ref{fig:disp-captura-ssh} se muestra una foto de la pantalla de una PC conectada mediante el protocolo SSH a la Raspberry Pi, en la que se captura el tráfico MVB en tiempo real.
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{./Figures/disp-captura.jpg}
+	\caption{Fotografía del dispositivo de captura.}
+    \label{fig:disp-captura}
+\end{figure}
+
+\begin{figure}[htbp]
+	\centering
+	\includegraphics[width=\textwidth]{./Figures/disp-captura-ssh.jpg}
+	\caption{Sesión de prueba del dispositivo de captura.}
+    \label{fig:disp-captura-ssh}
+\end{figure}
