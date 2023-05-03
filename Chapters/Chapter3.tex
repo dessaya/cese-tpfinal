@@ -57,7 +57,7 @@ En la figura~\ref{fig:fotodispositivo} se muestra una foto del dispositivo de ca
 
 Como se ve en la figura~\ref{fig:bloques}, la señal digital capturada por el VKTECH se envía a la Raspberry Pi en tiempo real mediante la interfaz USB. Para recibir esta señal en la Raspberry Pi se utiliza Sigrok, invocándolo de la siguiente manera:
 
-\begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
+\begin{lstlisting}[basicstyle=\small,breaklines=true]
 $ sigrok-cli -d fx2lafw --continuous --config samplerate=12m
              --channels D0 -O binary
 \end{lstlisting}
@@ -65,11 +65,11 @@ $ sigrok-cli -d fx2lafw --continuous --config samplerate=12m
 Los parámetros utilizados son:
 
 \begin{itemize}
-        \item \texttt{-d fx2lafw}: Utilizar el \textit{driver} compatible con el dispositivo VKTECH.
-        \item \texttt{--continuous}: Muestrear en forma continua hasta ser detenido.
-        \item \texttt{--config samplerate=12m}: Muestrear con una frecuencia de 12 MHz.
-        \item \texttt{--channels D0}: Muestrear únicamente el canal 0 (correspondiente al pin \texttt{CH1} de la figura \ref{fig:esquematico}).
-        \item \texttt{-O binary}: Producir como salida un flujo de datos en formato binario.
+    \item \texttt{-d fx2lafw}: utilizar el \textit{driver} compatible con el dispositivo VKTECH.
+    \item \texttt{--continuous}: muestrear en forma continua hasta ser detenido.
+    \item \texttt{--config samplerate=12m}: muestrear con una frecuencia de 12 MHz.
+    \item \texttt{--channels D0}: muestrear únicamente el canal 0 (correspondiente al pin \texttt{CH1} de la figura \ref{fig:esquematico}).
+    \item \texttt{-O binary}: producir como salida un flujo de datos en formato binario.
 \end{itemize}
 
 Por cada muestra capturada, se emite un byte en el que cada bit corresponde a uno de los 8 canales del VKTECH.
@@ -147,27 +147,26 @@ En la figura~\ref{fig:generador} se muestra un diagrama de bloques con el genera
 
 El firmware desarrollado para el generador de señal está disponible en la plataforma Github \cite{mvbgen}.
 
-Para simular el tráfico del bus, el firmware transmite un telegrama cada 750 microsegundos
-Los telegramas transmitidos son reproducciones de capturas realizadas en un bus MVB real (ver sección \ref{sec:capturas}). Por ejemplo, el primer telegrama transmitido está definido en \texttt{gen.c} como:
+Para simular el tráfico del bus, el firmware transmite un telegrama cada 750 microsegundos.
+Los telegramas transmitidos son reproducciones de capturas realizadas en un bus MVB real (ver sección \ref{sec:capturas}). Por ejemplo, en el código~\ref{cod:telegrama} se muestra la definición del primer telegrama transmitido.
+Los primeros 3 bytes corresponden a la trama \textit{master} (16 bits de datos más la secuencia de verificación) y a continuación se especifica el contenido de la trama \textit{slave}, de 36 bytes de longitud.
 
-\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=11,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+\begin{lstlisting}[label=cod:telegrama,caption=Definición de un telegrama a transmitir (\texttt{gen.c}).,float,numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=11,xleftmargin=1cm]
 static const telegram_t mvb_data[] = {
     { { 0x43, 0x90, 0xd6 }, (uint8_t[]){ 0x97, 0x1e, 0x00, 0x00, 0x00, 0x82, 0x14, 0x06, 0xdf, 0x1e, 0x0b, 0x31, 0x0f, 0x00, 0x17, 0x05, 0x8c, 0xf8, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x03, 0x4d, 0xc9, 0x11, 0x94, 0x11, 0xa8, 0x11, 0xa8, 0x04, 0x05, 0x88 }, 36 },
 \end{lstlisting}
 
-Los primeros 3 bytes corresponden a la trama \textit{master} (16 bits de datos más la secuencia de verificación) y a continuación se especifica el contenido de la trama \textit{slave}, de 36 bytes de longitud.
+Para enviar un telegrama, se envía la trama \textit{master}, luego se transmiten 15 bits en alto (esto simula una pequeña pausa entre las tramas), y luego se transmite la trama \textit{slave}. Esta secuencia de pasos se muestra en el código~\ref{cod:send}.
 
-Para enviar un telegrama, se envía la trama \textit{master}, luego se transmiten 15 bits en alto (esto simula una pequeña pausa entre las tramas), y luego se transmite la trama \textit{slave}:
-
-\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=193,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+\begin{lstlisting}[label=cod:send,caption=Secuencia de pasos para transmitir un telegrama (\texttt{gen.c}).,float,numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=193,xleftmargin=1cm]
     send_master(mvb_data[i].master);
     send_idle(15, 1);
     send_slave(mvb_data[i].slave, mvb_data[i].slave_len);
 \end{lstlisting}
 
-Para transmitir la trama \textit{master}, se envía el delimitador inicial, seguido de los 3 bytes de la trama y el delimitador final. La transmisión de la trama \textit{slave} es similar.
+Como se muestra en el código~\ref{cod:sendmaster}, para transmitir la trama \textit{master}, se envía el delimitador inicial, seguido de los 3 bytes de la trama y el delimitador final. La transmisión de la trama \textit{slave} es similar.
 
-\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=173,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+\begin{lstlisting}[label=cod:sendmaster,caption=Secuencia de pasos para transmitir la trama \textit{master} (\texttt{gen.c}).,float,numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=173,xleftmargin=1cm]
 static void send_master(const uint8_t bytes[]) {
     send_start_bit();
     send_master_start_delimiter();
@@ -176,11 +175,11 @@ static void send_master(const uint8_t bytes[]) {
 }
 \end{lstlisting}
 
-Estas funciones cargan la información a transmitir en un \textit{buffer}. Cada bit de información se codifica en Manchester: un bit ``1'' corresponde a una transición negativa y se traduce en dos bits 1-0, y un bit ``0'' corresponde a una transición positiva y se traduce en dos bits 0-1. De esta manera, cada bit de información que se carga ocupa 2 bits en el \textit{buffer}.
+Las funciones previamente mencionadas cargan la información a transmitir en un \textit{buffer}. Cada bit de información se codifica en Manchester: un bit ``1'' corresponde a una transición negativa y se traduce en dos bits 1-0, y un bit ``0'' corresponde a una transición positiva y se traduce en dos bits 0-1. De esta manera, cada bit de información que se carga ocupa 2 bits en el \textit{buffer}.
 
-En el archivo \texttt{main.c} se encuentra el ciclo principal, en el que se hace una pausa de 750 microsegundos, luego se prepara el siguiente telegrama a transmitir en el \textit{buffer}, y luego se transmite el contenido del \textit{buffer} mediante la interfaz SPI:
+En el código~\ref{cod:main} se muestra el ciclo principal del programa, en el que se hace una pausa de 750 microsegundos, luego se prepara el siguiente telegrama a transmitir en el \textit{buffer}, y luego se transmite el contenido del \textit{buffer} mediante la interfaz SPI.
 
-\begin{lstlisting}[numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=31,backgroundcolor=\color{light-gray},xleftmargin=1cm]
+\begin{lstlisting}[label=cod:main,caption=Ciclo principal del programa (\texttt{main.c}).,float,numberstyle=\footnotesize\ttfamily,language=C,breaklines=true,numbers=left,firstnumber=31,xleftmargin=1cm]
     while (1) {
         delayInaccurateUs(750);
         sendbuf_t *buf = next_telegram();
@@ -188,4 +187,4 @@ En el archivo \texttt{main.c} se encuentra el ciclo principal, en el que se hace
     }
 \end{lstlisting}
 
-La interfaz SPI se configura para transmitir con una frecuencia de 3 Mbit/s, de forma tal que cada par de bits transmitidos corresponden a un bit de información codificada en Manchester. De esta manera se logra una tasa de 1.5 Mbit/s compatible con el protocolo MVB.
+La interfaz SPI se configura para transmitir con una frecuencia de 3 Mbit/s, de forma tal que cada par de bits transmitidos corresponden a un bit de información codificada en Manchester. De esta manera se logra una tasa de 1,5 Mbit/s compatible con el protocolo MVB.

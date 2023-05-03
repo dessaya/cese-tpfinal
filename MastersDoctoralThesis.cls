@@ -464,6 +464,7 @@ KOMA-script documentation for details.}]{fancyhdr}
 \captionsetup[figure]{labelformat=simple, labelsep=period}
 \captionsetup[table]{labelformat=simple, labelsep=period}
 \captionsetup[lstlisting]{labelformat=simple, labelsep=period}
+\lstset{captionpos=b}
 
 %----------------------------------------------------------------------------------------
 

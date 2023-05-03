@@ -60,9 +60,9 @@ Estas visualizaciones se obtuvieron utilizando el software PulseView, que es par
 
 El siguiente objetivo en la etapa de investigación fue decodificar la información de las tramas capturadas. Para ello se desarrolló un programa en lenguaje Python que toma como entrada una captura en formato binario (un byte por muestra, como se describe en la sección \ref{sec:software}) y produce como salida un reporte de la información decodificada.
 
-El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario, decodifica los datos codificados en Manchester, y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,\allowbreak <master>,\allowbreak <slave>}. Por ejemplo, si \texttt{captura1.bin} contiene 4 telegramas:
+El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario, decodifica los datos codificados en Manchester, y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,\allowbreak <master>,\allowbreak <slave>}. En el código~\ref{cod:mvbsignal} se muestra un ejemplo de ejecución, en el que se procesa una captura que contiene 4 telegramas.
 
-\begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
+\begin{lstlisting}[label=cod:mvbsignal,caption=Ejemplo de ejecución de \texttt{mvb\_signal.py}.,float=htbp,basicstyle=\footnotesize,breaklines=true]
 $ python3 mvb_signal.py < captura1.bin
 0.0001,4390d6,971e0000008214
 0.0011,431bf7,30000f
@@ -70,12 +70,12 @@ $ python3 mvb_signal.py < captura1.bin
 0.0022,4010c5,04004830580048
 \end{lstlisting}
 
-La salida de \texttt{mvb\_signal.py} se puede redireccionar mediante un \textit{pipe} al segundo programa, \texttt{mvbparse.py}, que interpreta la información de las tramas según el protocolo MVB y produce un reporte de la evolución de cada una de las variables identificadas. Por ejemplo:
+La salida de \texttt{mvb\_signal.py} se puede redireccionar mediante un \textit{pipe} al segundo programa, \texttt{mvbparse.py}, que interpreta la información de las tramas según el protocolo MVB y produce un reporte de la evolución de cada una de las variables identificadas. En el código~\ref{cod:mvbparse} se muestra un ejemplo de ejecución de \texttt{mvbparse.py}.
 
-\begin{lstlisting}[basicstyle=\footnotesize,breaklines=true,backgroundcolor=\color{light-gray}]
+\begin{lstlisting}[label=cod:mvbparse,caption=Ejemplo de ejecución de \texttt{mvbparse.py}.,float=htbp,basicstyle=\footnotesize,breaklines=true]
 $ python3 mvb_signal.py < captura2.bin | python3 mvbparse.py
  [[port='0x31b'] [n=   12] [
-                  t=  0.001s  0x30000f0c0110000000000000000011a8
+                  t=  0.001s  0x30000f0c0110000000000000000011a8]],
  [[port='0x353'] [n=    3] [
                   t=  0.212s  0xe2036aa0000000000
                   t=  0.471s  0xe2036ba0000000000
@@ -107,14 +107,14 @@ Para probar el correcto funcionamiento del software de captura (descripto en la 
 
 Para ejecutar esta prueba se ejecuta el software pasándole como entrada el contenido de una de las capturas en lugar del flujo de datos en tiempo real. Para ello, en una consola se crea un \textit{fifo} y se lo alimenta con el contenido de la captura en un ciclo infinito. Se utiliza el comando \texttt{pv} \cite{pv} para limitar el ancho de banda a 12 MB/s:
 
-\begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
+\begin{lstlisting}[basicstyle=\small,breaklines=true]
 $ mkfifo /tmp/fifo
-$ while cat captura.bin ; ; end | pv -L 12M > /tmp/fifo
+$ while cat captura.bin; do :; done | pv -L 12M > /tmp/fifo
 \end{lstlisting}
 
 En otra consola se ejecuta el software de captura tomando el \textit{fifo} como entrada.
 
-\begin{lstlisting}[basicstyle=\small,breaklines=true,backgroundcolor=\color{light-gray}]
+\begin{lstlisting}[basicstyle=\small,breaklines=true]
 $ go run cmd/main.go </tmp/fifo
 \end{lstlisting}
 
