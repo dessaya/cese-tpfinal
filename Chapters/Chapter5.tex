@@ -21,18 +21,20 @@ En la siguiente sección se enumeran algunas posibilidades.
 A continuación se enumeran algunas oportunidades de mejora para un posible trabajo futuro:
 
 \begin{itemize}
+    \item Al haber sido desarrollado en forma de prototipo, el dispositivo de captura no cumple con el 100\% de la norma TCN. Queda pendiente revisar al detalle todos los requisitos de la norma y hacer una certificación.
+
+    \item El dispositivo de captura se conecta físicamente a las líneas de transmisión del bus EMD. No es descartable la posibilidad de que el dispositivo pueda afectar inadvertidamente (por ejemplo ante un desperfecto) el tráfico del bus. Al ser un sistema crítico esto no es deseable. Una solución posible es utilizar un optoacoplador para aislar eléctricamente el dispositivo de captura del bus.
+
     \item El dispositivo fue probado en una formación ferroviaria detenida. Queda pendiente hacer pruebas con una formación en movimiento.
 
     \item Si bien el dispositivo de captura cuenta con una interfaz Wi-Fi, por el momento no ofrece la posibilidad de monitorear el tráfico del bus MVB a distancia, por ejemplo desde un taller de Trenes Argentinos. Esto se podría lograr agregando una interfaz para transmitir los datos mediante la red de datos móviles (por ejemplo 4G).
-
-    Por otro lado, el estándar Wi-Fi puede no ser el más óptimo para un entorno como el de una formación ferroviaria, en el que el ruido eléctrico puede afectar la transmisión inalámbrica. Se necesita más investigación y pruebas con respecto a esto.
 
     \item El dispositivo está diseñado para capturar el tráfico del bus MVB implementado con capa física EMD. Actualmente no es posible capturar el tráfico en segmentos WTB, o MVB con otras capas físicas (por ejemplo ESD).
 
     \item El software de captura analiza únicamente las tramas de tipo \texttt{Process\_Data}, que son las que publican el valor de las distintas variables. En las capturas realizadas se observó que este tipo de tramas son las que se transmiten con mayor frecuencia (ver figura~\ref{fig:interactivo}). En caso de que los otros tipos de trama sean relevantes en el futuro, habrá que agregar al software la capacidad de analizarlos.
 
-    \item Como se explicó en la sección~\ref{sec:propuesta}, por simplicidad se decidió desarrollar el dispositivo de captura basándose en un microcontrolador o procesador en lugar de un componente especializado como el chip MVBC02C.
-    Esta solución tiene la desventaja de cargar al procesador con procesamiento que se podría hacer por hardware en lugar de software. Esto podría ser problemático si se quisiera agregar al dispositivo procesamientos adicionales por software.
-    Una alternativa podría ser mover la decodificación del protocolo MVB a un dispositivo programable como una FPGA.
+    \item Como se explicó en la sección~\ref{sec:propuesta}, por simplicidad se decidió hacer la decodificación MVB por software en lugar de utilizar un componente especializado como el chip MVBC02C.
+    Esta solución tiene la desventaja de cargar al procesador con procesamiento que se podría hacer por hardware, lo que podría ser problemático si se quisiera agregar al dispositivo procesamientos adicionales por software.
+    Además, al ejecutar el software en un sistema operativo de propósito general, el dispositivo no tiene tiempos de respuesta determinísticos, cosa no deseable en un sistema crítico.
+    Algunas alternativas para resolver estos problemas serían reescribir el software para correr en un sistema operativo de tiempo real o \textit{bare metal}, o bien reescribir la lógica de decodificación para programar en una FPGA.
 \end{itemize}
-
