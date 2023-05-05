@@ -101,7 +101,7 @@ El flujo de datos producido por Sigrok se redirecciona mediante un \textit{pipe}
 \item La capa intermedia (\texttt{MVBDecoder}) identifica las tramas MVB y por cada telegrama produce un evento (\texttt{Event}).
 \item La capa superior recibe los eventos y los procesa según el modo de operación del software. Se ofrecen dos modos de operación:
     \begin{itemize}
-        \item En el modo interactivo, el software presenta una interfaz de usuario en la que se muestra el tráfico MVB en tiempo real. En la figura~\ref{fig:interactivo} se muestra una captura de pantalla del modo interactivo.
+        \item En el modo interactivo, el software presenta una interfaz de usuario en la que se muestra el tráfico MVB en tiempo real.
         \item En el modo de almacenamiento, el software permite almacenar la evolución histórica de una o más variables de importancia.
     \end{itemize}
 \end{enumerate}
@@ -117,11 +117,49 @@ El flujo de datos producido por Sigrok se redirecciona mediante un \textit{pipe}
     \label{fig:capas-software}
 \end{figure}
 
+En la figura~\ref{fig:interactivo} se muestra una captura de pantalla del modo interactivo.
+En esta pantalla se presenta al usuario un resumen de la información capturada en tiempo real.
+En la figura se destacan algunas secciones de la pantalla, que se detallan a continuación.
+
+\begin{enumerate}
+\item Total de telegramas capturados desde el inicio.
+\item Cantidad de tiempo transcurrido desde el inicio.
+\item Histograma de la cantidad de telegramas capturados en los últimos 10 segundos.
+\item Tasa de telegramas capturados por segundo.
+\item Histograma y tasa de telegramas por segundo, desglosado por el valor del \texttt{F\_code}.
+\item Listado del último valor transmitido de cada variable, ordenado por puerto. El usuario puede elegir el rango de puertos a visualizar en esta lista.
+\item Histograma y listado de los últimos errores de decodificación.
+\end{enumerate}
+
 \begin{figure}[htbp]
 	\centering
-	\includegraphics[width=1\textwidth]{./Figures/modo-interactivo.png}
+	\includegraphics[width=1\textwidth]{./Figures/modo-interactivo.pdf}
 	\caption{Modo interactivo del software de captura.}
     \label{fig:interactivo}
+\end{figure}
+
+En el modo de almacenamiento, el software se configura con un conjunto de variables a capturar, y almacena la evolución histórica de dichas variables.
+Para el almacenamiento histórico se genera una carpeta por cada día de captura, y en cada carpeta un archivo CSV por cada variable capturada.
+
+Por ejemplo, si se desea capturar los primeros 6 bytes del puerto \texttt{0x002} y el byte 8 del puerto \texttt{0x003}, se debe ejecutar el programa de la siguiente manera:
+
+\begin{lstlisting}[basicstyle=\small,breaklines=true]
+$ go run record/main.go 002:0:6 "fecha y hora" 003:8:9 "tension de red"
+\end{lstlisting}
+
+En la figura~\ref{fig:carpetas} se muestra la estructura de carpetas y archivos generada por el software al ser ejecutado con esta configuración.
+Cada línea de los archivos CSV tiene el formato \texttt{<hora>,\allowbreak <valor>}, donde \texttt{<hora>} es la hora exacta en la que se transmitió la variable y \texttt{<valor>} es el valor de la variable.
+Para conservar espacio, solo se agrega una línea al archivo CSV cuando la variable cambia de valor.
+
+\begin{figure}[htbp]
+	\centering
+    {
+        \ttfamily
+        \fontsize{8pt}{8pt}\selectfont
+        \input{./Figures/carpetas.pdf_tex}
+    }
+	\caption{Ejemplo de estructura de carpetas y archivos generado por el software en modo de almacenamiento.}
+    \label{fig:carpetas}
 \end{figure}
 
 El código fuente de este programa está disponible en la plataforma Github \cite{mvbparse-go}.

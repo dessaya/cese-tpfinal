@@ -1,0 +1,70 @@
+%% Creator: Inkscape 1.2.2 (b0a8486541, 2022-12-01), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'carpetas.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{344.92662687bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.28675893)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0.11672179,0.22537804){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2023-05-01\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{carpetas.pdf}}%
+    \put(0.17002051,0.19189885){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}002-0-6-fecha-y-hora.csv\end{tabular}}}}%
+    \put(0.17002051,0.15733102){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}003-8-9-tension-de-red.csv\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{carpetas.pdf}}%
+    \put(0.05019434,0.2628375){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}capturas\end{tabular}}}}%
+    \put(0.11672179,0.08860678){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}2023-05-04\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{carpetas.pdf}}%
+    \put(0.17002051,0.05512759){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}002-0-6-fecha-y-hora.csv\end{tabular}}}}%
+    \put(0.17002051,0.02055976){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}003-8-9-tension-de-red.csv\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{carpetas.pdf}}%
+    \put(0.62765089,0.25163466){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}...\\14:05:53.535,14061e0b3110\\14:05:54.611,14061e0b3111\\14:05:55.567,14061e0b3112\\14:05:56.552,14061e0b3113\\14:05:57.545,14061e0b3114\\14:05:58.444,14061e0b3115\\14:05:59.447,14061e0b3116\\...\\\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{carpetas.pdf}}%
+  \end{picture}%
+\endgroup%
