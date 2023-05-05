@@ -162,7 +162,14 @@ Para conservar espacio, solo se agrega una línea al archivo CSV cuando la varia
     \label{fig:carpetas}
 \end{figure}
 
-El código fuente de este programa está disponible en la plataforma Github \cite{mvbparse-go}.
+El software de captura se ejecuta en la Raspberry Pi que forma parte del dispositivo de captura.
+Entre otras razones, se eligió el lenguaje Go porque permite compilar para Raspberry Pi con el siguiente comando:
+
+\begin{lstlisting}[basicstyle=\small,breaklines=true,columns=fullflexible]
+$ GOOS=linux GOARCH=arm GOARM=5 go build ./main.go
+\end{lstlisting}
+
+El código fuente del software de captura está disponible en la plataforma Github \cite{mvbparse-go}.
 En el archivo \texttt{README.md} se muestran más detalles acerca de los diferentes modos de funcionamiento.
 
 \section{Generador de señal de prueba MVB}

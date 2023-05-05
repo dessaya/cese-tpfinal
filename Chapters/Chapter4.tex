@@ -7,9 +7,11 @@ En este capítulo se describe la fase de investigación previa al desarrollo del
 \section{Capturas del tráfico de la red en una formación}
 \label{sec:capturas}
 
-Como parte de la etapa de investigación, se realizó en junio de 2020 una visita al taller Victoria de Trenes Argentinos, coordinada por Sergio Dieleke (Coordinador Laboratorio Electrónico, Subgerencia de Material Rodante Línea Mitre). El objetivo principal de la visita fue tomar capturas del tráfico del bus MVB, para tomar conocimiento acerca del estándar TCN y de la implementación particular en las EMU de Trenes Argentinos.
+Como parte de la etapa de investigación, se realizaron visitas a los talleres de Trenes Argentinos en Victoria y Castelar, coordinadas respectivamente por Sergio Dieleke (Laboratorio Electrónico, Subgerencia de Material Rodante Línea Mitre) y Bruno Pilato (Laboratorio de Electrónica de Castelar, Línea Sarmiento).
+El objetivo principal de estas visitas fue tomar capturas del tráfico del bus MVB, para ganar conocimiento acerca del estándar TCN y de la implementación particular en las EMU de Trenes Argentinos.
 
 Para tomar las capturas se conectó un MAX485 y un analizador lógico VKTECH entre dos dispositivos MVB.
+Se utilizó una PC para controlar el VKTECH y almacenar las diferentes capturas.
 También se utilizó un osciloscopio para verificar que la señal capturada tuviera las características esperadas.
 En la figura~\ref{fig:banco-capturas} se muestra un diagrama de bloques del banco de medición.
 En las figuras~\ref{fig:foto-banco-capturas} y \ref{fig:osciloscopio} se muestra una fotografía del banco de medición y un detalle de la señal capturada en el osciloscopio.
@@ -40,7 +42,7 @@ En las figuras~\ref{fig:foto-banco-capturas} y \ref{fig:osciloscopio} se muestra
     \label{fig:osciloscopio}
 \end{figure}
 
-Mediante la PC conectada con el analizador lógico se tomaron capturas de un minuto de duración del tráfico del bus MVB, con el banco de medición conectado en diferentes puntos del segmento.
+Se tomaron varias capturas de un minuto de duración del tráfico del bus MVB, con el banco de medición conectado en diferentes puntos del segmento.
 En simultáneo con las capturas se efectuó el procedimiento de encendido de la red y una secuencia de pasos tales como tomar cabina, abrir y cerrar puertas, cambio de marcha, etc., de forma tal de generar tráfico en la red y así poder analizar en detalle el funcionamiento de la misma.
 
 En la figura~\ref{fig:pulseview} se muestra una visualización de una de las capturas.
@@ -60,7 +62,7 @@ Estas visualizaciones se obtuvieron utilizando el software PulseView, que es par
 
 El siguiente objetivo en la etapa de investigación fue decodificar la información de las tramas capturadas. Para ello se desarrolló un programa en lenguaje Python que toma como entrada una captura en formato binario (un byte por muestra, como se describe en la sección \ref{sec:software}) y produce como salida un reporte de la información decodificada.
 
-El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario, decodifica los datos codificados en Manchester, y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,\allowbreak <master>,\allowbreak <slave>}. En el código~\ref{cod:mvbsignal} se muestra un ejemplo de ejecución, en el que se procesa una captura que contiene 4 telegramas.
+El software se compone de dos programas. El primero de ellos, \texttt{mvb\_signal.py}, toma como entrada una captura en formato binario, decodifica los datos codificados en Manchester, y produce como salida un archivo en formato CSV en el que cada línea representa un telegrama y tiene la forma \texttt{<tiempo>,\allowbreak <master>,\allowbreak <slave>}, donde \texttt{<tiempo>} es la marca de tiempo en segundos del telegrama, y \texttt{<master>} y \texttt{<slave>} es el contenido de las tramas en formato hexadecimal, sin incluir los delimitadores y las secuencias de verificación. En el código~\ref{cod:mvbsignal} se muestra un ejemplo de ejecución, en el que se procesa una captura que contiene 4 telegramas.
 
 \begin{lstlisting}[label=cod:mvbsignal,caption=Ejemplo de ejecución de \texttt{mvb\_signal.py}.,float=htbp,basicstyle=\footnotesize,breaklines=true]
 $ python3 mvb_signal.py < captura1.bin
@@ -126,10 +128,12 @@ De esta manera se pudo probar todas sus funcionalidades, tanto en el modo intera
 % 28 oct 2021?
 % 24 nov 2021?
 
-Para efectuar una prueba de integración del software de captura funcionando en una Raspberry Pi y recibiendo el flujo de datos del VKTECH, se utilizó el generador de señal MVB descripto en la sección \ref{sec:generador}, en una configuración como se muestra en la figura~\ref{fig:generador}.
+El siguiente paso fue efectuar una prueba de integración del software de captura recibiendo el flujo de datos del VKTECH en tiempo real.
+Para ello se utilizó el generador de señal MVB descripto en la sección \ref{sec:generador}, en una configuración como se muestra en la figura~\ref{fig:generador}.
 En la figura~\ref{fig:educiaa+vktech} se muestra el banco de medición utilizado en esta prueba.
 
-Esta prueba permitió verificar que la combinación del VKTECH con la Raspberry Pi funciona correctamente para recibir el flujo de datos, y que el software corriendo en la Raspberry Pi puede decodificar el tráfico MVB en tiempo real.
+Esta prueba permitió verificar que es posible utilizar el VKTECH para recibir el flujo de datos en tiempo real.
+La prueba se realizó con el software de captura corriendo tanto en una PC como en una Raspberry Pi.
 
 \begin{figure}[htbp]
 	\centering
