@@ -107,14 +107,14 @@ A continuación se describen los diferentes tipos de pruebas efectuadas para ver
 
 Para probar el correcto funcionamiento del software de captura (descripto en la sección \ref{sec:software}) se utilizaron las capturas tomadas en la formación ferroviaria (ver sección \ref{sec:capturas}).
 
-Para ejecutar esta prueba se ejecuta el software pasándole como entrada el contenido de una de las capturas en lugar del flujo de datos en tiempo real. Para ello, en una consola se crea un \textit{fifo} y se lo alimenta con el contenido de la captura en un ciclo infinito. Se utiliza el comando \texttt{pv} \cite{pv} para limitar el ancho de banda a 12 MB/s:
+Para ejecutar esta prueba se ejecuta el software pasándole como entrada el contenido de una de las capturas en lugar del flujo de datos en tiempo real. Para ello, en una consola se crea un FIFO y se lo alimenta con el contenido de la captura en un ciclo infinito. Se utiliza el comando \texttt{pv} \cite{pv} para limitar el ancho de banda a 12 MB/s:
 
 \begin{lstlisting}
 $ mkfifo /tmp/fifo
 $ while cat captura.bin; do :; done | pv -L 12M > /tmp/fifo
 \end{lstlisting}
 
-En otra consola se ejecuta el software de captura tomando el \textit{fifo} como entrada.
+En otra consola se ejecuta el software de captura tomando el FIFO como entrada.
 
 \begin{lstlisting}
 $ go run cmd/main.go </tmp/fifo
