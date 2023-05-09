@@ -167,13 +167,15 @@ Para conservar espacio, solo se agrega una línea al archivo CSV cuando la varia
 \begin{figure}[htbp]
 	\centering
     {
+        \renewcommand{\baselinestretch}{0.9}
         \ttfamily
-        \fontsize{8pt}{8pt}\selectfont
+        \fontsize{9pt}{9pt}\selectfont
         \input{./Figures/carpetas.pdf_tex}
     }
 	\caption{Ejemplo de estructura de carpetas y archivos generado por el software en modo de almacenamiento.}
     \label{fig:carpetas}
 \end{figure}
+\renewcommand{\baselinestretch}{1.0}
 
 El software de captura se ejecuta en la Raspberry Pi que forma parte del dispositivo de captura.
 Entre otras razones, se eligió el lenguaje Go porque permite compilar para Raspberry Pi con el siguiente comando:

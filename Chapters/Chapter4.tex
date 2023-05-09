@@ -151,14 +151,8 @@ La prueba se realizó con el software de captura corriendo tanto en una PC como 
 
 La última prueba que se efectuó fue con el dispositivo de captura conectado en el bus MVB en una formación de Trenes Argentinos, como se muestra en la figura~\ref{fig:conexion}.
 Se verificó que la conexión del dispositivo de captura no afectó al correcto funcionamiento del resto de los dispositivos conectados en el bus MVB. Sin embargo, cabe destacar que esta prueba se realizó en una formación detenida.
-En la figura~\ref{fig:disp-captura} se muestra el dispositivo de captura, y en la figura~\ref{fig:disp-captura-ssh} se muestra una foto de la pantalla de una PC conectada mediante el protocolo SSH a la Raspberry Pi, en la que se captura el tráfico MVB en tiempo real.
 
-\begin{figure}[htbp]
-	\centering
-	\includegraphics[width=\textwidth]{./Figures/disp-captura.jpg}
-	\caption{Fotografía del dispositivo de captura.}
-    \label{fig:disp-captura}
-\end{figure}
+En la figura~\ref{fig:disp-captura-ssh} se muestra una fotografía de la pantalla de la PC utilizada durante la sesión de prueba. En la pantalla se observan dos consolas conectadas a la Raspberry Pi mediante el protocolo SSH. En la consola de la izquierda se ejecuta el comando \texttt{sigrok-cli} para recibir el flujo de datos del VKTECH en tiempo real. En la consola de la derecha se ejecuta el software de captura en modo interactivo.
 
 \begin{figure}[htbp]
 	\centering
