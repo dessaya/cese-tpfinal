@@ -43,11 +43,11 @@ En las figuras~\ref{fig:foto-banco-capturas} y \ref{fig:osciloscopio} se muestra
 \end{figure}
 
 Se tomaron varias capturas de un minuto de duración del tráfico del bus MVB, con el banco de medición conectado en diferentes puntos del segmento.
-En simultáneo con las capturas se efectuó el procedimiento de encendido de la red y una secuencia de pasos tales como tomar cabina, abrir y cerrar puertas, cambio de marcha, etc., de forma tal de generar tráfico en la red y así poder analizar en detalle el funcionamiento de la misma.
+Durante la toma de las capturas se efectuó el procedimiento de encendido de la red y una secuencia de pasos tales como tomar cabina, abrir y cerrar puertas, cambio de marcha, etc., de forma tal de generar tráfico en la red y así poder identificar las variables asociadas a estos eventos.
 
 En la figura~\ref{fig:pulseview} se muestra una visualización de una de las capturas.
 En la parte superior se observa que en los primeros 10 ms se transmitieron 10 telegramas, aunque el nivel de detalle no es suficiente para discernir el formato de las tramas.
-En la parte inferior se amplía la visualización de uno de los telegramas, donde se puede apreciar en detalle las tramas \textit{master} y \textit{slave}.
+En la parte inferior se amplía la visualización de uno de los telegramas, donde se puede apreciar en detalle las tramas \textit{master} y \textit{slave}, descriptas en la sección~\ref{sec:tramas}.
 Estas visualizaciones se obtuvieron utilizando el software PulseView, que es parte del proyecto Sigrok.
 
 \begin{figure}[htbp!]
@@ -150,7 +150,7 @@ La prueba se realizó con el software de captura corriendo tanto en una PC como 
 % 6 ene 2022? (RPI)
 
 La última prueba que se efectuó fue con el dispositivo de captura conectado en el bus MVB en una formación de Trenes Argentinos, como se muestra en la figura~\ref{fig:conexion}.
-Se verificó que la conexión del dispositivo de captura no afectó al correcto funcionamiento del resto de los dispositivos conectados en el bus MVB. Sin embargo, cabe destacar que esta prueba se realizó en una formación detenida.
+Se verificó que la conexión del dispositivo de captura no afectó al correcto funcionamiento del resto de los dispositivos conectados en el bus MVB. Cabe destacar que esta prueba se realizó en una formación detenida.
 
 En la figura~\ref{fig:disp-captura-ssh} se muestra una fotografía de la pantalla de la PC utilizada durante la sesión de prueba. En la pantalla se observan dos consolas conectadas a la Raspberry Pi mediante el protocolo SSH. En la consola de la izquierda se ejecuta el comando \texttt{sigrok-cli} para recibir el flujo de datos del VKTECH en tiempo real. En la consola de la derecha se ejecuta el software de captura en modo interactivo.
 

@@ -20,8 +20,8 @@ Como se muestra en la figura~\ref{fig:conexion}, el dispositivo de captura tiene
 \end{figure}
 
 En la figura~\ref{fig:bloques} se muestra un diagrama de la arquitectura del dispositivo de captura.
-Se dejan en corto circuito las líneas de transmisión (ver figura~\ref{fig:pines}), de forma tal de que el dispositivo opere en forma pasiva. Salvando la impedancia que agrega a la línea, el dispositivo de captura es transparente para el resto de los dispositivos del segmento.
-El dispositivo MAX485 \cite{max485} se utiliza para convertir la señal de entrada (par diferencial $-$5~V - +5~V) a una señal compatible para el analizador lógico VKTECH (0~V - +5~V). El analizador lógico se conecta a una Raspberry Pi mediante un puerto USB 2.0. La Raspberry Pi decodifica las tramas por software y almacena los datos capturados en una tarjeta de memoria. Mediante su interfaz Wi-Fi se puede conectar una PC (utilizando el protocolo SSH) para descargar las capturas, y también para visualizar el tráfico del bus MVB en tiempo real.
+Salvando la impedancia que agrega a la línea, el dispositivo de captura es transparente para el resto de los dispositivos del segmento, ya que se dejan en corto circuito las líneas de datos provenientes de los dispositivos anterior y siguiente en el segmento (ver figura~\ref{fig:pines}).
+El dispositivo MAX485 \cite{max485} se utiliza para convertir la señal de entrada (par diferencial $-$5~V - +5~V) a una señal compatible para el analizador lógico VKTECH (0~V - +5~V). El analizador lógico se conecta a una Raspberry Pi mediante un puerto USB 2.0. La Raspberry Pi decodifica las tramas por software y almacena los datos capturados en una tarjeta de memoria. Mediante su interfaz Wi-Fi se puede conectar una PC (utilizando el protocoo SSH) para descargar las capturas, y también para visualizar el tráfico del bus MVB en tiempo real.
 
 \begin{figure}[htbp]
 	\centering
@@ -44,6 +44,7 @@ En la figura~\ref{fig:esquematico} se muestra un diagrama esquemático con el de
 \end{figure}
 
 En la figura \ref{fig:fotodispositivo} se puede observar el dispositivo de captura con el gabinete abierto y cerrado. Cabe aclarar que en el dispositivo hay cuatro MAX485 para permitir, en el futuro, capturar ambas líneas A y B del segmento EMD, o bien capturar dos o más segmentos diferentes. En esta primera versión del dispositivo se utiliza solo uno de los MAX485.
+El gabinete fue donado por el taller Victoria de Trenes Argentinos y es compatible con el \textit{rack} presente en las EMU, ya que proviene de un módulo que está fuera de servicio.
 
 \begin{figure}[htbp]
 	\centering
@@ -190,9 +191,9 @@ En el archivo \texttt{README.md} se muestran más detalles acerca de los diferen
 \section{Generador de señal de prueba MVB}
 \label{sec:generador}
 
-Para probar el funcionamiento del software de captura sin necesidad de acudir a un taller de Trenes Argentinos y conectar el dispositivo en una formación ferroviaria, se decidió desarrollar un dispositivo auxiliar. Este dispositivo genera una señal con características similares a la señal transmitida en el bus MVB, emitiendo una secuencia de tramas en forma cíclica.
+Para probar el funcionamiento del software de captura sin necesidad de acudir a un taller de Trenes Argentinos y conectar el dispositivo en una formación ferroviaria, se decidió desarrollar un dispositivo auxiliar. Este dispositivo genera una señal con características similares a la señal presente en el bus MVB, emitiendo una secuencia de tramas en forma cíclica.
 
-En la figura~\ref{fig:generador} se muestra un diagrama de bloques con el generador de señal MVB conectado al VKTECH. La señal es generada por software en una EDU-CIAA, y se transmite mediante la interfaz SPI. La señal generada es similar a la señal producida por el MAX485 en la figura~\ref{fig:bloques}.
+En la figura~\ref{fig:generador} se muestra un diagrama de bloques con el generador de señal MVB conectado al VKTECH. La señal es generada por software en una EDU-CIAA, y se transmite mediante la interfaz SPI. La señal generada es similar a la que entrega el MAX485 en su pin 1 (ver figuras~\ref{fig:bloques} y \ref{fig:esquematico}).
 
 \begin{figure}[htbp]
 	\centering
