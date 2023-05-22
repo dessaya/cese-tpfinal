@@ -21,7 +21,7 @@ Como se muestra en la figura~\ref{fig:conexion}, el dispositivo de captura tiene
 
 En la figura~\ref{fig:bloques} se muestra un diagrama de la arquitectura del dispositivo de captura.
 Salvando la impedancia que agrega a la línea, el dispositivo de captura es transparente para el resto de los dispositivos del segmento, ya que se dejan en corto circuito las líneas de datos provenientes de los dispositivos anterior y siguiente en el segmento (ver figura~\ref{fig:pines}).
-El dispositivo MAX485 \cite{max485} se utiliza para convertir la señal de entrada (par diferencial $-$5~V - +5~V) a una señal compatible para el analizador lógico VKTECH (0~V - +5~V). El analizador lógico se conecta a una Raspberry Pi mediante un puerto USB 2.0. La Raspberry Pi decodifica las tramas por software y almacena los datos capturados en una tarjeta de memoria. Mediante su interfaz Wi-Fi se puede conectar una PC (utilizando el protocoo SSH) para descargar las capturas, y también para visualizar el tráfico del bus MVB en tiempo real.
+El dispositivo MAX485 \cite{max485} se utiliza para convertir la señal de entrada (par diferencial $-$5~V - +5~V) a una señal compatible para el analizador lógico VKTECH (0~V - +5~V). El analizador lógico se conecta a una Raspberry Pi mediante un puerto USB 2.0. La Raspberry Pi decodifica las tramas por software y almacena los datos capturados en una tarjeta de memoria. Mediante su interfaz Wi-Fi se puede conectar una PC (utilizando el protocolo SSH) para descargar las capturas, y también para visualizar el tráfico del bus MVB en tiempo real.
 
 \begin{figure}[htbp]
 	\centering
